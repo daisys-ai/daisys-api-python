@@ -1,0 +1,5 @@
+pydantic>=2
+httpx
+sphinx>=7.0.0
+furo
+sphinxcontrib-napoleon
