@@ -1,0 +1,776 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="./">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="#" /><link rel="search" title="Search" href="search.html" />
+
+    <!-- Generated with Sphinx 7.2.5 and Furo 2023.08.19 --><title>Index - daisys-api 1.0.0 documentation</title>
+<link rel="stylesheet" type="text/css" href="_static/pygments.css?v=362ab14a" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=36a5483c" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  --color-toc-background: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  --color-background-primary: black;
+  --color-background-secondary: black;
+  --color-foreground-primary: white;
+  --color-foreground-secondary: #19AAD8;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  --color-background-primary: black;
+  --color-background-secondary: black;
+  --color-foreground-primary: white;
+  --color-foreground-secondary: #19AAD8;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="index.html"><div class="brand">daisys-api 1.0.0 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo only-light" src="_static/daisys-logo-light.png" alt="Light Logo"/>
+    <img class="sidebar-logo only-dark" src="_static/daisys-logo.png" alt="Dark Logo"/>
+  </div>
+  
+  <span class="sidebar-brand-text">daisys-api 1.0.0 documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="getting_started.html">Getting started</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Getting started</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="getting_started_python.html">Getting started with the Python client library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started_cli.html">Getting started with the command line</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="examples.html">Daisys API examples</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Daisys API examples</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="examples/hello_daisys.html">Example: Hello Daisys, synchronous client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/hello_daisys_async.html">Example: Hello Daisys, asynchronous client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/tokens_example.html">Example: Using an access token instead of password</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/curl_example.html">Example: <code class="docutils literal notranslate"><span class="pre">curl</span></code> example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="input.html">Daisys API input</a></li>
+<li class="toctree-l1"><a class="reference internal" href="daisys.html">Daisys API top-level object</a></li>
+<li class="toctree-l1"><a class="reference internal" href="v1/speak/clients.html">Daisys API clients</a></li>
+<li class="toctree-l1"><a class="reference internal" href="v1/speak/models.html">Daisys API models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="v1/speak/endpoints.html">Daisys API endpoints</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          
+<section class="genindex-section">
+  <h1 id="index">Index</h1>
+  <div class="genindex-jumpbox"><a href="#_"><strong>_</strong></a> | <a href="#A"><strong>A</strong></a> | <a href="#C"><strong>C</strong></a> | <a href="#D"><strong>D</strong></a> | <a href="#E"><strong>E</strong></a> | <a href="#F"><strong>F</strong></a> | <a href="#G"><strong>G</strong></a> | <a href="#I"><strong>I</strong></a> | <a href="#L"><strong>L</strong></a> | <a href="#M"><strong>M</strong></a> | <a href="#N"><strong>N</strong></a> | <a href="#O"><strong>O</strong></a> | <a href="#P"><strong>P</strong></a> | <a href="#R"><strong>R</strong></a> | <a href="#S"><strong>S</strong></a> | <a href="#T"><strong>T</strong></a> | <a href="#U"><strong>U</strong></a> | <a href="#V"><strong>V</strong></a> | <a href="#W"><strong>W</strong></a></div>
+</section>
+<section id="_" class="genindex-section">
+  <h2>_</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="daisys.html#daisys.factory.DaisysAPI.__init__">__init__() (daisys.factory.DaisysAPI method)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="A" class="genindex-section">
+  <h2>A</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="v1/speak/models.html#daisys.v1.speak.models.ProsodyType.AFFECT">AFFECT (daisys.v1.speak.models.ProsodyType attribute)</a>
+</li>
+        <li><a href="v1/speak/models.html#daisys.v1.speak.models.AffectProsody">AffectProsody (class in daisys.v1.speak.models)</a>
+</li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="v1/speak/models.html#daisys.v1.speak.models.AffectProsody.arousal">arousal (daisys.v1.speak.models.AffectProsody attribute)</a>
+</li>
+        <li><a href="v1/speak/models.html#daisys.v1.speak.models.TakeInfo.audio_rate">audio_rate (daisys.v1.speak.models.TakeInfo attribute)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="C" class="genindex-section">
+  <h2>C</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="v1/speak/clients.html#daisys.v1.speak.async_client.DaisysAsyncSpeakClientV1.close">close() (daisys.v1.speak.async_client.DaisysAsyncSpeakClientV1 method)</a>
+
+        <ul>
+          <li><a href="v1/speak/clients.html#daisys.v1.speak.sync_client.DaisysSyncSpeakClientV1.close">(daisys.v1.speak.sync_client.DaisysSyncSpeakClientV1 method)</a>
+</li>
+        </ul></li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="D" class="genindex-section">
+  <h2>D</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li>
+    daisys.v1.speak.async_client
+
+        <ul>
+          <li><a href="v1/speak/clients.html#module-daisys.v1.speak.async_client">module</a>
+</li>
+        </ul></li>
+        <li>
+    daisys.v1.speak.models
+
+        <ul>
+          <li><a href="v1/speak/models.html#module-daisys.v1.speak.models">module</a>
+</li>
+        </ul></li>
+        <li>
+    daisys.v1.speak.sync_client
+
+        <ul>
+          <li><a href="v1/speak/clients.html#module-daisys.v1.speak.sync_client">module</a>
+</li>
+        </ul></li>
+        <li><a href="daisys.html#daisys.factory.DaisysAPI">DaisysAPI (class in daisys.factory)</a>
+</li>
+        <li><a href="v1/speak/clients.html#daisys.v1.speak.async_client.DaisysAsyncSpeakClientV1">DaisysAsyncSpeakClientV1 (class in daisys.v1.speak.async_client)</a>
+</li>
+        <li><a href="v1/speak/clients.html#daisys.v1.speak.sync_client.DaisysSyncSpeakClientV1">DaisysSyncSpeakClientV1 (class in daisys.v1.speak.sync_client)</a>
+</li>
+        <li><a href="v1/speak/models.html#daisys.v1.speak.models.VoiceGenerate.default_prosody">default_prosody (daisys.v1.speak.models.VoiceGenerate attribute)</a>
+
+        <ul>
+          <li><a href="v1/speak/models.html#daisys.v1.speak.models.VoiceUpdate.default_prosody">(daisys.v1.speak.models.VoiceUpdate attribute)</a>
+</li>
+        </ul></li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="v1/speak/models.html#daisys.v1.speak.models.VoiceGenerate.default_style">default_style (daisys.v1.speak.models.VoiceGenerate attribute)</a>
+
+        <ul>
+          <li><a href="v1/speak/models.html#daisys.v1.speak.models.VoiceUpdate.default_style">(daisys.v1.speak.models.VoiceUpdate attribute)</a>
+</li>
+        </ul></li>
+        <li><a href="v1/speak/clients.html#daisys.v1.speak.async_client.DaisysAsyncSpeakClientV1.delete_take">delete_take() (daisys.v1.speak.async_client.DaisysAsyncSpeakClientV1 method)</a>
+
+        <ul>
+          <li><a href="v1/speak/clients.html#daisys.v1.speak.sync_client.DaisysSyncSpeakClientV1.delete_take">(daisys.v1.speak.sync_client.DaisysSyncSpeakClientV1 method)</a>
+</li>
+        </ul></li>
+        <li><a href="v1/speak/clients.html#daisys.v1.speak.async_client.DaisysAsyncSpeakClientV1.delete_voice">delete_voice() (daisys.v1.speak.async_client.DaisysAsyncSpeakClientV1 method)</a>
+
+        <ul>
+          <li><a href="v1/speak/clients.html#daisys.v1.speak.sync_client.DaisysSyncSpeakClientV1.delete_voice">(daisys.v1.speak.sync_client.DaisysSyncSpeakClientV1 method)</a>
+</li>
+        </ul></li>
+        <li><a href="v1/speak/models.html#daisys.v1.speak.models.TTSModel.displayname">displayname (daisys.v1.speak.models.TTSModel attribute)</a>
+</li>
+        <li><a href="v1/speak/models.html#daisys.v1.speak.models.AffectProsody.dominance">dominance (daisys.v1.speak.models.AffectProsody attribute)</a>
+</li>
+        <li><a href="v1/speak/models.html#daisys.v1.speak.models.TakeGenerateWithoutVoice.done_webhook">done_webhook (daisys.v1.speak.models.TakeGenerateWithoutVoice attribute)</a>
+
+        <ul>
+          <li><a href="v1/speak/models.html#daisys.v1.speak.models.VoiceGenerate.done_webhook">(daisys.v1.speak.models.VoiceGenerate attribute)</a>
+</li>
+        </ul></li>
+        <li><a href="v1/speak/models.html#daisys.v1.speak.models.TakeInfo.duration">duration (daisys.v1.speak.models.TakeInfo attribute)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="E" class="genindex-section">
+  <h2>E</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="v1/speak/models.html#daisys.v1.speak.models.Status.ERROR">ERROR (daisys.v1.speak.models.Status attribute)</a>
+</li>
+        <li><a href="v1/speak/models.html#daisys.v1.speak.models.VoiceGenerate.example_take">example_take (daisys.v1.speak.models.VoiceGenerate attribute)</a>
+</li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="v1/speak/models.html#daisys.v1.speak.models.VoiceInfo.example_take_id">example_take_id (daisys.v1.speak.models.VoiceInfo attribute)</a>
+</li>
+        <li><a href="v1/speak/models.html#daisys.v1.speak.models.SimpleProsody.expression">expression (daisys.v1.speak.models.SimpleProsody attribute)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="F" class="genindex-section">
+  <h2>F</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="v1/speak/models.html#daisys.v1.speak.models.TTSModel.flags">flags (daisys.v1.speak.models.TTSModel attribute)</a>
+</li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="v1/speak/models.html#daisys.v1.speak.models.ProsodyType.from_class">from_class() (daisys.v1.speak.models.ProsodyType static method)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="G" class="genindex-section">
+  <h2>G</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="v1/speak/models.html#daisys.v1.speak.models.VoiceGenerate.gender">gender (daisys.v1.speak.models.VoiceGenerate attribute)</a>
+
+        <ul>
+          <li><a href="v1/speak/models.html#daisys.v1.speak.models.VoiceUpdate.gender">(daisys.v1.speak.models.VoiceUpdate attribute)</a>
+</li>
+        </ul></li>
+        <li><a href="v1/speak/models.html#daisys.v1.speak.models.TTSModel.genders">genders (daisys.v1.speak.models.TTSModel attribute)</a>
+</li>
+        <li><a href="v1/speak/clients.html#daisys.v1.speak.async_client.DaisysAsyncSpeakClientV1.generate_take">generate_take() (daisys.v1.speak.async_client.DaisysAsyncSpeakClientV1 method)</a>
+
+        <ul>
+          <li><a href="v1/speak/clients.html#daisys.v1.speak.sync_client.DaisysSyncSpeakClientV1.generate_take">(daisys.v1.speak.sync_client.DaisysSyncSpeakClientV1 method)</a>
+</li>
+        </ul></li>
+        <li><a href="v1/speak/clients.html#daisys.v1.speak.async_client.DaisysAsyncSpeakClientV1.generate_takes">generate_takes() (daisys.v1.speak.async_client.DaisysAsyncSpeakClientV1 method)</a>
+
+        <ul>
+          <li><a href="v1/speak/clients.html#daisys.v1.speak.sync_client.DaisysSyncSpeakClientV1.generate_takes">(daisys.v1.speak.sync_client.DaisysSyncSpeakClientV1 method)</a>
+</li>
+        </ul></li>
+        <li><a href="v1/speak/clients.html#daisys.v1.speak.async_client.DaisysAsyncSpeakClientV1.generate_voice">generate_voice() (daisys.v1.speak.async_client.DaisysAsyncSpeakClientV1 method)</a>
+
+        <ul>
+          <li><a href="v1/speak/clients.html#daisys.v1.speak.sync_client.DaisysSyncSpeakClientV1.generate_voice">(daisys.v1.speak.sync_client.DaisysSyncSpeakClientV1 method)</a>
+</li>
+        </ul></li>
+        <li><a href="daisys.html#daisys.factory.DaisysAPI.get_async_client">get_async_client() (daisys.factory.DaisysAPI method)</a>
+</li>
+        <li><a href="daisys.html#daisys.factory.DaisysAPI.get_client">get_client() (daisys.factory.DaisysAPI method)</a>
+</li>
+        <li><a href="v1/speak/clients.html#daisys.v1.speak.async_client.DaisysAsyncSpeakClientV1.get_model">get_model() (daisys.v1.speak.async_client.DaisysAsyncSpeakClientV1 method)</a>
+
+        <ul>
+          <li><a href="v1/speak/clients.html#daisys.v1.speak.sync_client.DaisysSyncSpeakClientV1.get_model">(daisys.v1.speak.sync_client.DaisysSyncSpeakClientV1 method)</a>
+</li>
+        </ul></li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="v1/speak/clients.html#daisys.v1.speak.async_client.DaisysAsyncSpeakClientV1.get_models">get_models() (daisys.v1.speak.async_client.DaisysAsyncSpeakClientV1 method)</a>
+
+        <ul>
+          <li><a href="v1/speak/clients.html#daisys.v1.speak.sync_client.DaisysSyncSpeakClientV1.get_models">(daisys.v1.speak.sync_client.DaisysSyncSpeakClientV1 method)</a>
+</li>
+        </ul></li>
+        <li><a href="v1/speak/clients.html#daisys.v1.speak.async_client.DaisysAsyncSpeakClientV1.get_take">get_take() (daisys.v1.speak.async_client.DaisysAsyncSpeakClientV1 method)</a>
+
+        <ul>
+          <li><a href="v1/speak/clients.html#daisys.v1.speak.sync_client.DaisysSyncSpeakClientV1.get_take">(daisys.v1.speak.sync_client.DaisysSyncSpeakClientV1 method)</a>
+</li>
+        </ul></li>
+        <li><a href="v1/speak/clients.html#daisys.v1.speak.async_client.DaisysAsyncSpeakClientV1.get_take_audio">get_take_audio() (daisys.v1.speak.async_client.DaisysAsyncSpeakClientV1 method)</a>
+
+        <ul>
+          <li><a href="v1/speak/clients.html#daisys.v1.speak.sync_client.DaisysSyncSpeakClientV1.get_take_audio">(daisys.v1.speak.sync_client.DaisysSyncSpeakClientV1 method)</a>
+</li>
+        </ul></li>
+        <li><a href="v1/speak/clients.html#daisys.v1.speak.async_client.DaisysAsyncSpeakClientV1.get_takes">get_takes() (daisys.v1.speak.async_client.DaisysAsyncSpeakClientV1 method)</a>
+
+        <ul>
+          <li><a href="v1/speak/clients.html#daisys.v1.speak.sync_client.DaisysSyncSpeakClientV1.get_takes">(daisys.v1.speak.sync_client.DaisysSyncSpeakClientV1 method)</a>
+</li>
+        </ul></li>
+        <li><a href="v1/speak/clients.html#daisys.v1.speak.async_client.DaisysAsyncSpeakClientV1.get_voice">get_voice() (daisys.v1.speak.async_client.DaisysAsyncSpeakClientV1 method)</a>
+
+        <ul>
+          <li><a href="v1/speak/clients.html#daisys.v1.speak.sync_client.DaisysSyncSpeakClientV1.get_voice">(daisys.v1.speak.sync_client.DaisysSyncSpeakClientV1 method)</a>
+</li>
+        </ul></li>
+        <li><a href="v1/speak/clients.html#daisys.v1.speak.async_client.DaisysAsyncSpeakClientV1.get_voices">get_voices() (daisys.v1.speak.async_client.DaisysAsyncSpeakClientV1 method)</a>
+
+        <ul>
+          <li><a href="v1/speak/clients.html#daisys.v1.speak.sync_client.DaisysSyncSpeakClientV1.get_voices">(daisys.v1.speak.sync_client.DaisysSyncSpeakClientV1 method)</a>
+</li>
+        </ul></li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="I" class="genindex-section">
+  <h2>I</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="v1/speak/models.html#daisys.v1.speak.models.TakeResponse.info">info (daisys.v1.speak.models.TakeResponse attribute)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="L" class="genindex-section">
+  <h2>L</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="v1/speak/models.html#daisys.v1.speak.models.TTSModel.languages">languages (daisys.v1.speak.models.TTSModel attribute)</a>
+</li>
+        <li><a href="v1/speak/clients.html#daisys.v1.speak.async_client.DaisysAsyncSpeakClientV1.login">login() (daisys.v1.speak.async_client.DaisysAsyncSpeakClientV1 method)</a>
+
+        <ul>
+          <li><a href="v1/speak/clients.html#daisys.v1.speak.sync_client.DaisysSyncSpeakClientV1.login">(daisys.v1.speak.sync_client.DaisysSyncSpeakClientV1 method)</a>
+</li>
+        </ul></li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="v1/speak/clients.html#daisys.v1.speak.async_client.DaisysAsyncSpeakClientV1.login_refresh">login_refresh() (daisys.v1.speak.async_client.DaisysAsyncSpeakClientV1 method)</a>
+
+        <ul>
+          <li><a href="v1/speak/clients.html#daisys.v1.speak.sync_client.DaisysSyncSpeakClientV1.login_refresh">(daisys.v1.speak.sync_client.DaisysSyncSpeakClientV1 method)</a>
+</li>
+        </ul></li>
+        <li><a href="v1/speak/clients.html#daisys.v1.speak.async_client.DaisysAsyncSpeakClientV1.logout">logout() (daisys.v1.speak.async_client.DaisysAsyncSpeakClientV1 method)</a>
+
+        <ul>
+          <li><a href="v1/speak/clients.html#daisys.v1.speak.sync_client.DaisysSyncSpeakClientV1.logout">(daisys.v1.speak.sync_client.DaisysSyncSpeakClientV1 method)</a>
+</li>
+        </ul></li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="M" class="genindex-section">
+  <h2>M</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="v1/speak/models.html#daisys.v1.speak.models.Version.minor">minor (daisys.v1.speak.models.Version attribute)</a>
+</li>
+        <li><a href="v1/speak/models.html#daisys.v1.speak.models.VoiceGenerate.model">model (daisys.v1.speak.models.VoiceGenerate attribute)</a>
+</li>
+        <li>
+    module
+
+        <ul>
+          <li><a href="v1/speak/clients.html#module-daisys.v1.speak.async_client">daisys.v1.speak.async_client</a>
+</li>
+          <li><a href="v1/speak/models.html#module-daisys.v1.speak.models">daisys.v1.speak.models</a>
+</li>
+          <li><a href="v1/speak/clients.html#module-daisys.v1.speak.sync_client">daisys.v1.speak.sync_client</a>
+</li>
+        </ul></li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="N" class="genindex-section">
+  <h2>N</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="v1/speak/models.html#daisys.v1.speak.models.TTSModel.name">name (daisys.v1.speak.models.TTSModel attribute)</a>
+
+        <ul>
+          <li><a href="v1/speak/models.html#daisys.v1.speak.models.VoiceGenerate.name">(daisys.v1.speak.models.VoiceGenerate attribute)</a>
+</li>
+          <li><a href="v1/speak/models.html#daisys.v1.speak.models.VoiceUpdate.name">(daisys.v1.speak.models.VoiceUpdate attribute)</a>
+</li>
+        </ul></li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="v1/speak/models.html#daisys.v1.speak.models.TakeInfo.normalized_text">normalized_text (daisys.v1.speak.models.TakeInfo attribute)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="O" class="genindex-section">
+  <h2>O</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="v1/speak/models.html#daisys.v1.speak.models.TakeGenerateWithoutVoice.override_language">override_language (daisys.v1.speak.models.TakeGenerateWithoutVoice attribute)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="P" class="genindex-section">
+  <h2>P</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="v1/speak/models.html#daisys.v1.speak.models.ProsodyFeatures.pace">pace (daisys.v1.speak.models.ProsodyFeatures attribute)</a>
+</li>
+        <li><a href="v1/speak/models.html#daisys.v1.speak.models.ProsodyFeatures.pitch">pitch (daisys.v1.speak.models.ProsodyFeatures attribute)</a>
+</li>
+        <li><a href="v1/speak/models.html#daisys.v1.speak.models.SignalProsody.pitch_range">pitch_range (daisys.v1.speak.models.SignalProsody attribute)</a>
+</li>
+        <li><a href="v1/speak/models.html#daisys.v1.speak.models.Webhook.post_url">post_url (daisys.v1.speak.models.Webhook attribute)</a>
+</li>
+        <li><a href="v1/speak/models.html#daisys.v1.speak.models.Status.PROGRESS_25">PROGRESS_25 (daisys.v1.speak.models.Status attribute)</a>
+</li>
+        <li><a href="v1/speak/models.html#daisys.v1.speak.models.Status.PROGRESS_50">PROGRESS_50 (daisys.v1.speak.models.Status attribute)</a>
+</li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="v1/speak/models.html#daisys.v1.speak.models.Status.PROGRESS_75">PROGRESS_75 (daisys.v1.speak.models.Status attribute)</a>
+</li>
+        <li><a href="v1/speak/models.html#daisys.v1.speak.models.TakeGenerateWithoutVoice.prosody">prosody (daisys.v1.speak.models.TakeGenerateWithoutVoice attribute)</a>
+</li>
+        <li><a href="v1/speak/models.html#daisys.v1.speak.models.ProsodyType.prosody">prosody() (daisys.v1.speak.models.ProsodyType method)</a>
+</li>
+        <li><a href="v1/speak/models.html#daisys.v1.speak.models.ProsodyFeatures">ProsodyFeatures (class in daisys.v1.speak.models)</a>
+</li>
+        <li><a href="v1/speak/models.html#daisys.v1.speak.models.ProsodyFeaturesUnion">ProsodyFeaturesUnion (in module daisys.v1.speak.models)</a>
+</li>
+        <li><a href="v1/speak/models.html#daisys.v1.speak.models.ProsodyType">ProsodyType (class in daisys.v1.speak.models)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="R" class="genindex-section">
+  <h2>R</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="v1/speak/models.html#daisys.v1.speak.models.Status.READY">READY (daisys.v1.speak.models.Status attribute)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="S" class="genindex-section">
+  <h2>S</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="v1/speak/models.html#daisys.v1.speak.models.ProsodyType.SIGNAL">SIGNAL (daisys.v1.speak.models.ProsodyType attribute)</a>
+</li>
+        <li><a href="v1/speak/models.html#daisys.v1.speak.models.SignalProsody">SignalProsody (class in daisys.v1.speak.models)</a>
+</li>
+        <li><a href="v1/speak/models.html#daisys.v1.speak.models.ProsodyType.SIMPLE">SIMPLE (daisys.v1.speak.models.ProsodyType attribute)</a>
+</li>
+        <li><a href="v1/speak/models.html#daisys.v1.speak.models.SimpleProsody">SimpleProsody (class in daisys.v1.speak.models)</a>
+</li>
+        <li><a href="v1/speak/models.html#daisys.v1.speak.models.Status.STARTED">STARTED (daisys.v1.speak.models.Status attribute)</a>
+</li>
+        <li><a href="v1/speak/models.html#daisys.v1.speak.models.Status">Status (class in daisys.v1.speak.models)</a>
+</li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="v1/speak/models.html#daisys.v1.speak.models.TakeResponse.status">status (daisys.v1.speak.models.TakeResponse attribute)</a>
+
+        <ul>
+          <li><a href="v1/speak/models.html#daisys.v1.speak.models.VoiceInfo.status">(daisys.v1.speak.models.VoiceInfo attribute)</a>
+</li>
+        </ul></li>
+        <li><a href="v1/speak/models.html#daisys.v1.speak.models.Webhook.status_code">status_code (daisys.v1.speak.models.Webhook attribute)</a>
+</li>
+        <li><a href="v1/speak/models.html#daisys.v1.speak.models.TakeGenerateWithoutVoice.status_webhook">status_webhook (daisys.v1.speak.models.TakeGenerateWithoutVoice attribute)</a>
+</li>
+        <li><a href="v1/speak/models.html#daisys.v1.speak.models.TakeGenerateWithoutVoice.style">style (daisys.v1.speak.models.TakeGenerateWithoutVoice attribute)</a>
+</li>
+        <li><a href="v1/speak/models.html#daisys.v1.speak.models.TTSModel.styles">styles (daisys.v1.speak.models.TTSModel attribute)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="T" class="genindex-section">
+  <h2>T</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="v1/speak/models.html#daisys.v1.speak.models.TakeResponse.take_id">take_id (daisys.v1.speak.models.TakeResponse attribute)</a>
+</li>
+        <li><a href="v1/speak/models.html#daisys.v1.speak.models.TakeGenerate">TakeGenerate (class in daisys.v1.speak.models)</a>
+</li>
+        <li><a href="v1/speak/models.html#daisys.v1.speak.models.TakeGenerateWithoutVoice">TakeGenerateWithoutVoice (class in daisys.v1.speak.models)</a>
+</li>
+        <li><a href="v1/speak/models.html#daisys.v1.speak.models.TakeInfo">TakeInfo (class in daisys.v1.speak.models)</a>
+</li>
+        <li><a href="v1/speak/models.html#daisys.v1.speak.models.TakeResponse">TakeResponse (class in daisys.v1.speak.models)</a>
+</li>
+        <li><a href="v1/speak/models.html#daisys.v1.speak.models.TakeGenerateWithoutVoice.text">text (daisys.v1.speak.models.TakeGenerateWithoutVoice attribute)</a>
+</li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="v1/speak/models.html#daisys.v1.speak.models.SignalProsody.tilt">tilt (daisys.v1.speak.models.SignalProsody attribute)</a>
+</li>
+        <li><a href="v1/speak/models.html#daisys.v1.speak.models.Status.TIMEOUT">TIMEOUT (daisys.v1.speak.models.Status attribute)</a>
+</li>
+        <li><a href="v1/speak/models.html#daisys.v1.speak.models.TakeResponse.timestamp_ms">timestamp_ms (daisys.v1.speak.models.TakeResponse attribute)</a>
+
+        <ul>
+          <li><a href="v1/speak/models.html#daisys.v1.speak.models.VoiceInfo.timestamp_ms">(daisys.v1.speak.models.VoiceInfo attribute)</a>
+</li>
+          <li><a href="v1/speak/models.html#daisys.v1.speak.models.Webhook.timestamp_ms">(daisys.v1.speak.models.Webhook attribute)</a>
+</li>
+        </ul></li>
+        <li><a href="v1/speak/models.html#daisys.v1.speak.models.TTSModel">TTSModel (class in daisys.v1.speak.models)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="U" class="genindex-section">
+  <h2>U</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="v1/speak/clients.html#daisys.v1.speak.async_client.DaisysAsyncSpeakClientV1.update_voice">update_voice() (daisys.v1.speak.async_client.DaisysAsyncSpeakClientV1 method)</a>
+
+        <ul>
+          <li><a href="v1/speak/clients.html#daisys.v1.speak.sync_client.DaisysSyncSpeakClientV1.update_voice">(daisys.v1.speak.sync_client.DaisysSyncSpeakClientV1 method)</a>
+</li>
+        </ul></li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="V" class="genindex-section">
+  <h2>V</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="v1/speak/models.html#daisys.v1.speak.models.AffectProsody.valence">valence (daisys.v1.speak.models.AffectProsody attribute)</a>
+</li>
+        <li><a href="v1/speak/models.html#daisys.v1.speak.models.Version">Version (class in daisys.v1.speak.models)</a>
+</li>
+        <li><a href="v1/speak/models.html#daisys.v1.speak.models.Version.version">version (daisys.v1.speak.models.Version attribute)</a>
+</li>
+        <li><a href="v1/speak/clients.html#daisys.v1.speak.async_client.DaisysAsyncSpeakClientV1.version">version() (daisys.v1.speak.async_client.DaisysAsyncSpeakClientV1 method)</a>
+
+        <ul>
+          <li><a href="v1/speak/clients.html#daisys.v1.speak.sync_client.DaisysSyncSpeakClientV1.version">(daisys.v1.speak.sync_client.DaisysSyncSpeakClientV1 method)</a>
+</li>
+        </ul></li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="v1/speak/models.html#daisys.v1.speak.models.TakeGenerate.voice_id">voice_id (daisys.v1.speak.models.TakeGenerate attribute)</a>
+
+        <ul>
+          <li><a href="v1/speak/models.html#daisys.v1.speak.models.VoiceInfo.voice_id">(daisys.v1.speak.models.VoiceInfo attribute)</a>
+</li>
+        </ul></li>
+        <li><a href="v1/speak/models.html#daisys.v1.speak.models.VoiceGender">VoiceGender (class in daisys.v1.speak.models)</a>
+</li>
+        <li><a href="v1/speak/models.html#daisys.v1.speak.models.VoiceGenerate">VoiceGenerate (class in daisys.v1.speak.models)</a>
+</li>
+        <li><a href="v1/speak/models.html#daisys.v1.speak.models.VoiceInfo">VoiceInfo (class in daisys.v1.speak.models)</a>
+</li>
+        <li><a href="v1/speak/models.html#daisys.v1.speak.models.VoiceUpdate">VoiceUpdate (class in daisys.v1.speak.models)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="W" class="genindex-section">
+  <h2>W</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="v1/speak/clients.html#daisys.v1.speak.async_client.DaisysAsyncSpeakClientV1.wait_for_takes">wait_for_takes() (daisys.v1.speak.async_client.DaisysAsyncSpeakClientV1 method)</a>
+
+        <ul>
+          <li><a href="v1/speak/clients.html#daisys.v1.speak.sync_client.DaisysSyncSpeakClientV1.wait_for_takes">(daisys.v1.speak.sync_client.DaisysSyncSpeakClientV1 method)</a>
+</li>
+        </ul></li>
+        <li><a href="v1/speak/clients.html#daisys.v1.speak.async_client.DaisysAsyncSpeakClientV1.wait_for_voices">wait_for_voices() (daisys.v1.speak.async_client.DaisysAsyncSpeakClientV1 method)</a>
+
+        <ul>
+          <li><a href="v1/speak/clients.html#daisys.v1.speak.sync_client.DaisysSyncSpeakClientV1.wait_for_voices">(daisys.v1.speak.sync_client.DaisysSyncSpeakClientV1 method)</a>
+</li>
+        </ul></li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="v1/speak/models.html#daisys.v1.speak.models.Status.WAITING">WAITING (daisys.v1.speak.models.Status attribute)</a>
+</li>
+        <li><a href="v1/speak/models.html#daisys.v1.speak.models.Webhook">Webhook (class in daisys.v1.speak.models)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          
+          
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2023, Daisys AI
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer no-toc">
+      
+      
+      
+    </aside>
+  </div>
+</div><script src="_static/documentation_options.js?v=8d563738"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/scripts/furo.js?v=32e29ea5"></script>
+    </body>
+</html>

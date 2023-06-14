@@ -1,0 +1,395 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Daisys API input" href="../input.html" /><link rel="prev" title="Example: Using an access token instead of password" href="tokens_example.html" />
+
+    <!-- Generated with Sphinx 7.2.5 and Furo 2023.08.19 -->
+        <title>Example: curl example - daisys-api 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=362ab14a" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=135e06be" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=36a5483c" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  --color-toc-background: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  --color-background-primary: black;
+  --color-background-secondary: black;
+  --color-foreground-primary: white;
+  --color-foreground-secondary: #19AAD8;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  --color-background-primary: black;
+  --color-background-secondary: black;
+  --color-foreground-primary: white;
+  --color-foreground-secondary: #19AAD8;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../index.html"><div class="brand">daisys-api 1.0.0 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo only-light" src="../_static/daisys-logo-light.png" alt="Light Logo"/>
+    <img class="sidebar-logo only-dark" src="../_static/daisys-logo.png" alt="Dark Logo"/>
+  </div>
+  
+  <span class="sidebar-brand-text">daisys-api 1.0.0 documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../getting_started.html">Getting started</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Getting started</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started_python.html">Getting started with the Python client library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started_cli.html">Getting started with the command line</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="../examples.html">Daisys API examples</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Daisys API examples</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="hello_daisys.html">Example: Hello Daisys, synchronous client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello_daisys_async.html">Example: Hello Daisys, asynchronous client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tokens_example.html">Example: Using an access token instead of password</a></li>
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Example: <code class="docutils literal notranslate"><span class="pre">curl</span></code> example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../input.html">Daisys API input</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../daisys.html">Daisys API top-level object</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../v1/speak/clients.html">Daisys API clients</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../v1/speak/models.html">Daisys API models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../v1/speak/endpoints.html">Daisys API endpoints</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          <section id="example-curl-example">
+<span id="v1-speak-curl-example"></span><h1>Example: <code class="docutils literal notranslate"><span class="pre">curl</span></code> example<a class="headerlink" href="#example-curl-example" title="Link to this heading">#</a></h1>
+<p>This example shows:</p>
+<ol class="arabic simple">
+<li><p>How to use <code class="docutils literal notranslate"><span class="pre">curl</span></code> and <code class="docutils literal notranslate"><span class="pre">jq</span></code> in a shell script to access the Daisys API.</p></li>
+<li><p>How to create the synchronous client using a context manager.</p></li>
+<li><p>Get a list of voices and select the last one.</p></li>
+<li><p>Reference the voice to generate audio (a “take”) for some text.</p></li>
+<li><p>Download the resulting audio.</p></li>
+<li><p>Play the audio using <code class="docutils literal notranslate"><span class="pre">aplay</span></code> (Linux).</p></li>
+</ol>
+<p>To run it, you must supply your email and password in the respecting environment
+variables, as shown below.</p>
+<p>Requires: <a class="reference external" href="https://curl.se/">curl</a>, <a class="reference external" href="https://jqlang.github.io/jq/">jq</a>.</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">Example output</span><a class="headerlink" href="#id1" title="Link to this code">#</a></div>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>curl<span class="w"> </span>-O<span class="w"> </span>https://raw.githubusercontent.com/daisys-ai/daisys-api-python/main/examples/curl_example.sh
+$<span class="w"> </span>jq<span class="w"> </span>--version<span class="w">  </span><span class="c1"># &quot;jq&quot; is needed for the example program to parse API responses</span>
+$<span class="w"> </span><span class="nb">export</span><span class="w"> </span><span class="nv">DAISYS_EMAIL</span><span class="o">=</span>user@example.com
+$<span class="w"> </span><span class="nb">export</span><span class="w"> </span><span class="nv">DAISYS_PASSWORD</span><span class="o">=</span>example_password123
+$<span class="w"> </span>bash<span class="w"> </span>examples/curl_example.sh
+Found<span class="w"> </span>Daisys<span class="w"> </span>Speak<span class="w"> </span>API<span class="w">  </span><span class="o">{</span><span class="s2">&quot;version&quot;</span>:1,<span class="s2">&quot;minor&quot;</span>:0<span class="o">}</span>
+GET<span class="w"> </span>https://api.daisys.ai/v1/speak/voices
+<span class="s2">&quot;Deirdre&quot;</span><span class="w"> </span>is<span class="w"> </span>speaking!
+POST<span class="w"> </span>https://api.daisys.ai/v1/speak/takes/generate:<span class="w"> </span><span class="o">{</span><span class="s2">&quot;voice_id&quot;</span>:<span class="w"> </span><span class="s2">&quot;v01hasgezqjcsnc91zdfzpx0apj&quot;</span>,
+<span class="s2">&quot;text&quot;</span>:<span class="w"> </span><span class="s2">&quot;Hello there, I am Daisys!&quot;</span>,<span class="w"> </span><span class="s2">&quot;prosody&quot;</span>:<span class="w"> </span><span class="o">{</span><span class="s2">&quot;pace&quot;</span>:<span class="w"> </span>-8,<span class="w"> </span><span class="s2">&quot;pitch&quot;</span>:<span class="w"> </span><span class="m">2</span>,<span class="w"> </span><span class="s2">&quot;expression&quot;</span>:<span class="w"> </span><span class="m">8</span><span class="o">}}</span>
+Take<span class="w"> </span>is<span class="w"> </span><span class="s2">&quot;waiting&quot;</span>.
+GET<span class="w"> </span>https://api.daisys.ai/v1/speak/takes/t01hawm80qzj60bf2w9z0np7wej
+Take<span class="w"> </span>is<span class="w"> </span><span class="s2">&quot;started&quot;</span>.
+GET<span class="w"> </span>https://api.daisys.ai/v1/speak/takes/t01hawm80qzj60bf2w9z0np7wej
+Take<span class="w"> </span>is<span class="w"> </span><span class="s2">&quot;ready&quot;</span>.
+Getting<span class="w"> </span>audio!
+GET<span class="w"> </span>https://api.daisys.ai/v1/speak/takes/t01hawm80qzj60bf2w9z0np7wej/wav
+Wrote<span class="w"> </span><span class="s1">&#39;hello_daisys.wav&#39;</span>.
+Playing<span class="w"> </span>WAVE<span class="w"> </span><span class="s1">&#39;hello_daisys.wav&#39;</span><span class="w"> </span>:<span class="w"> </span>Signed<span class="w"> </span><span class="m">16</span><span class="w"> </span>bit<span class="w"> </span>Little<span class="w"> </span>Endian,<span class="w"> </span>Rate<span class="w"> </span><span class="m">44100</span><span class="w"> </span>Hz,<span class="w"> </span>Mono
+</pre></div>
+</div>
+</div>
+<p>The “Playing” message will only appear if you have the <code class="docutils literal notranslate"><span class="pre">aplay</span></code> command installed,
+otherwise you may play the resulting <code class="docutils literal notranslate"><span class="pre">hello_daisys.wav</span></code> file in any audio player.</p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">examples/curl_example.sh</span><a class="headerlink" href="#id2" title="Link to this code">#</a></div>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="ch">#!/bin/bash</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span><span class="c1"># The following is an example of how to use the Daisys API for generating a voice and then</span>
+<span class="linenos"> 4</span><span class="c1"># using it in a speech generation task using the &quot;curl&quot; program.  The API generates</span>
+<span class="linenos"> 5</span><span class="c1"># &quot;takes&quot; representing one or more sentences from a speaker.</span>
+<span class="linenos"> 6</span>
+<span class="linenos"> 7</span><span class="c1"># This program downloads the resulting .wav file and tries to play it using &quot;aplay&quot; if</span>
+<span class="linenos"> 8</span><span class="c1"># that program is available.</span>
+<span class="linenos"> 9</span>
+<span class="linenos">10</span><span class="nb">set</span><span class="w"> </span>-e<span class="w">  </span><span class="c1"># Stop if we hit any problems along the way.</span>
+<span class="linenos">11</span>
+<span class="linenos">12</span><span class="nv">EMAIL</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">DAISYS_EMAIL</span><span class="p">:=user@example.com</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="linenos">13</span><span class="nv">PASSWORD</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">DAISYS_PASSWORD</span><span class="p">:=example_password</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="linenos">14</span>
+<span class="linenos">15</span><span class="nv">DAISYS_AUTH</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">DAISYS_AUTH_URL</span><span class="p">:=https://api.daisys.ai</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="linenos">16</span><span class="nv">DAISYS</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">DAISYS_API_URL</span><span class="p">:=https://api.daisys.ai</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="linenos">17</span><span class="nv">API</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$DAISYS</span><span class="s2">/v1&quot;</span>
+<span class="linenos">18</span><span class="nv">SPEAK</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$API</span><span class="s2">/speak&quot;</span>
+<span class="linenos">19</span>
+<span class="linenos">20</span><span class="nv">TOKEN</span><span class="o">=</span><span class="k">$(</span>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>-H<span class="w"> </span><span class="s1">&#39;Content-Type: application/json&#39;</span><span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;email&quot;: &quot;&#39;</span><span class="nv">$EMAIL</span><span class="s1">&#39;&quot;, &quot;password&quot;: &quot;&#39;</span><span class="nv">$PASSWORD</span><span class="s1">&#39;&quot;}&#39;</span><span class="w"> </span><span class="nv">$DAISYS_AUTH</span>/auth/login<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s2">&quot;.access_token&quot;</span><span class="k">)</span>
+<span class="linenos">21</span>
+<span class="linenos">22</span><span class="nv">AUTH</span><span class="o">=</span><span class="s2">&quot;Authorization: Bearer </span><span class="nv">$TOKEN</span><span class="s2">&quot;</span>
+<span class="linenos">23</span>
+<span class="linenos">24</span><span class="c1"># Some functions for authenticated GET and POST methods using curl.</span>
+<span class="linenos">25</span>speak_get<span class="o">()</span><span class="w"> </span><span class="o">{</span>
+<span class="linenos">26</span><span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;GET </span><span class="nv">$SPEAK</span><span class="s2">/</span><span class="nv">$1</span><span class="s2">&quot;</span><span class="w"> </span>&gt;/dev/stderr
+<span class="linenos">27</span><span class="w">    </span>curl<span class="w"> </span>-s<span class="w"> </span>-L<span class="w"> </span>-H<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$AUTH</span><span class="s2">&quot;</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$SPEAK</span><span class="s2">/</span><span class="nv">$1</span><span class="s2">&quot;</span>
+<span class="linenos">28</span><span class="o">}</span>
+<span class="linenos">29</span>speak_post<span class="o">()</span><span class="w"> </span><span class="o">{</span>
+<span class="linenos">30</span><span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;POST </span><span class="nv">$SPEAK</span><span class="s2">/</span><span class="nv">$1</span><span class="s2">: </span><span class="nv">$2</span><span class="s2">&quot;</span><span class="w"> </span>&gt;/dev/stderr
+<span class="linenos">31</span><span class="w">    </span>curl<span class="w"> </span>-s<span class="w"> </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span>-H<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$AUTH</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$2</span><span class="s2">&quot;</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$SPEAK</span><span class="s2">/</span><span class="nv">$1</span><span class="s2">&quot;</span>
+<span class="linenos">32</span><span class="o">}</span>
+<span class="linenos">33</span>
+<span class="linenos">34</span><span class="nv">VERSION</span><span class="o">=</span><span class="k">$(</span>curl<span class="w"> </span>-s<span class="w"> </span><span class="nv">$API</span>/speak/version<span class="k">)</span>
+<span class="linenos">35</span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;Found Daisys Speak API &#39;</span><span class="w"> </span><span class="nv">$VERSION</span>
+<span class="linenos">36</span>
+<span class="linenos">37</span><span class="c1"># Get a list of all voices, select the last one.</span>
+<span class="linenos">38</span><span class="nv">VOICE</span><span class="o">=</span><span class="k">$(</span>speak_get<span class="w"> </span>voices<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;.[-1]&#39;</span><span class="k">)</span>
+<span class="linenos">39</span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$VOICE</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>null<span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="linenos">40</span><span class="w">    </span><span class="nb">echo</span><span class="w"> </span>No<span class="w"> </span>voices<span class="w"> </span>found.
+<span class="linenos">41</span><span class="w">    </span><span class="nv">MODEL</span><span class="o">=</span><span class="k">$(</span>speak_get<span class="w"> </span>models<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;.[-1]&#39;</span><span class="k">)</span>
+<span class="linenos">42</span><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$MODEL</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>null<span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="linenos">43</span><span class="w">        </span><span class="nb">echo</span><span class="w"> </span>No<span class="w"> </span>models<span class="w"> </span>found.
+<span class="linenos">44</span><span class="w">        </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span>
+<span class="linenos">45</span><span class="w">    </span><span class="k">fi</span>
+<span class="linenos">46</span><span class="w">    </span><span class="nb">echo</span><span class="w"> </span>Using<span class="w"> </span>model<span class="w"> </span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="nv">$MODEL</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.displayname<span class="k">)</span>
+<span class="linenos">47</span><span class="w">    </span><span class="nb">echo</span><span class="w"> </span>Generating<span class="w"> </span>a<span class="w"> </span>voice.
+<span class="linenos">48</span><span class="w">    </span><span class="nv">VOICE</span><span class="o">=</span><span class="k">$(</span>speak_post<span class="w"> </span>voices/generate<span class="w"> </span><span class="s1">&#39;{&quot;name&quot;: &quot;Tina&quot;, &quot;gender&quot;: &quot;female&quot;, &quot;model&quot;: &#39;</span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="nv">$MODEL</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.name<span class="k">)</span><span class="s1">&#39;}&#39;</span><span class="k">)</span>
+<span class="linenos">49</span><span class="k">fi</span>
+<span class="linenos">50</span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="nv">$VOICE</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.name<span class="k">)</span><span class="s2"> is speaking!&quot;</span>
+<span class="linenos">51</span><span class="nv">VOICE_ID</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="nv">$VOICE</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.voice_id<span class="k">)</span><span class="s2">&quot;</span>
+<span class="linenos">52</span>
+<span class="linenos">53</span><span class="nv">TAKE</span><span class="o">=</span><span class="k">$(</span>speak_post<span class="w"> </span>takes/generate<span class="w"> </span><span class="s1">&#39;{&quot;voice_id&quot;: &#39;</span><span class="nv">$VOICE_ID</span><span class="s1">&#39;, &quot;text&quot;: &quot;Hello there, I am Daisys!&quot;, &quot;prosody&quot;: {&quot;pace&quot;: -8, &quot;pitch&quot;: 2, &quot;expression&quot;: 8}}&#39;</span><span class="k">)</span>
+<span class="linenos">54</span><span class="nv">TAKE_ID</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="nv">$TAKE</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span>.take_id<span class="k">)</span><span class="s2">&quot;</span>
+<span class="linenos">55</span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Take is </span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="nv">$TAKE</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.status<span class="k">)</span><span class="s2">.&quot;</span>
+<span class="linenos">56</span><span class="k">while</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="nv">$TAKE</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span>.status<span class="k">)</span><span class="w"> </span>!<span class="o">=</span><span class="w"> </span><span class="s1">&#39;ready&#39;</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="nv">$TAKE</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span>.status<span class="k">)</span><span class="w"> </span>!<span class="o">=</span><span class="w"> </span><span class="s1">&#39;error&#39;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="linenos">57</span><span class="w">    </span>sleep<span class="w"> </span><span class="m">0</span>.5
+<span class="linenos">58</span><span class="w">    </span><span class="nv">TAKE</span><span class="o">=</span><span class="k">$(</span>speak_get<span class="w"> </span>takes/<span class="nv">$TAKE_ID</span><span class="k">)</span>
+<span class="linenos">59</span><span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Take is </span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="nv">$TAKE</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.status<span class="k">)</span><span class="s2">.&quot;</span>
+<span class="linenos">60</span><span class="k">done</span>
+<span class="linenos">61</span>
+<span class="linenos">62</span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Getting audio!&quot;</span>
+<span class="linenos">63</span>speak_get<span class="w"> </span>takes/<span class="nv">$TAKE_ID</span>/wav<span class="w"> </span>&gt;<span class="w"> </span>hello_daisys.wav
+<span class="linenos">64</span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Wrote &#39;hello_daisys.wav&#39;.&quot;</span>
+<span class="linenos">65</span>
+<span class="linenos">66</span><span class="c1"># Play the audio if we have aplay (Linux), otherwise just print a nice message.</span>
+<span class="linenos">67</span><span class="k">if</span><span class="w"> </span>which<span class="w"> </span>aplay<span class="w"> </span>&gt;/dev/null<span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="linenos">68</span><span class="w">    </span>aplay<span class="w"> </span>hello_daisys.wav
+<span class="linenos">69</span><span class="k">else</span>
+<span class="linenos">70</span><span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;aplay not found, but audio was written to &#39;hello_daisys.wav&#39;.&quot;</span>
+<span class="linenos">71</span><span class="k">fi</span>
+</pre></div>
+</div>
+</div>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="../input.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Daisys API input</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="tokens_example.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Example: Using an access token instead of password</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2023, Daisys AI
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer no-toc">
+      
+      
+      
+    </aside>
+  </div>
+</div><script src="../_static/documentation_options.js?v=8d563738"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/furo.js?v=32e29ea5"></script>
+    </body>
+</html>
