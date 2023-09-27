@@ -178,7 +178,7 @@ class Webhook(BaseModel):
         status_code: The HTTP status code of the last response from the webhook.
     """
     post_url: str
-    timestamp: Optional[int] = None
+    timestamp_ms: Optional[int] = None
     status_code: Optional[int] = None
 
 class TakeGenerateWithoutVoice(BaseModel):

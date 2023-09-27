@@ -321,8 +321,10 @@ class DaisysSyncSpeakClientV1:
             VoiceInfo: Information about the generated voice.
 
         """
-        params = VoiceGenerate(name=name, model=model, gender=gender, default_style=default_style,
-                               default_prosody=default_prosody)
+        params = VoiceGenerate(name=name, model=model, gender=gender,
+                               default_style=default_style,
+                               default_prosody=default_prosody,
+                               done_webhook=Webhook(post_url=done_webhook) if done_webhook else None)
         result = VoiceInfo(**self._http('voices/generate', params))
         if wait:
             result = self.wait_for_voices(result.voice_id, raise_on_error=raise_on_error,
@@ -514,6 +516,8 @@ class DaisysSyncSpeakClientV1:
                       override_language: str=None,
                       style: list[str]=None,
                       prosody: ProsodyFeaturesUnion=None,
+                      status_webhook: str=None,
+                      done_webhook: str=None,
                       wait: bool=True,
                       raise_on_error: bool=True,
                       timeout: Optional[float]=None) -> TakeResponse:
@@ -543,6 +547,13 @@ class DaisysSyncSpeakClientV1:
                      style.  Here you can provide a SimpleProsody or most models also accept
                      the more detailed AffectProsody.
 
+            status_webhook: An optional URL to be called using ``POST`` whenever the take's
+                            status changes, with :class:`TakeResponse` in the body content.
+
+            done_webhook: An optional URL to be called exactly once using ``POST`` when the
+                          take is ``READY``, ``ERROR``, or ``TIMEOUT``, with
+                          :class:`TakeResponse` in the body content.
+
             wait: if True, wait for take to be ready before returning.
 
             raise_on_error: If True (default) a DaisysTakeGeenerateException error will be
@@ -557,7 +568,9 @@ class DaisysSyncSpeakClientV1:
         """
         params = TakeGenerate(voice_id=voice_id, text=text,
                               override_language=override_language,
-                              style=style, prosody=prosody)
+                              style=style, prosody=prosody,
+                              status_webhook=Webhook(post_url=status_webhook) if status_webhook else None,
+                              done_webhook=Webhook(post_url=done_webhook) if done_webhook else None)
         result = TakeResponse(**self._http('takes/generate', params))
         if wait:
             result = self.wait_for_takes(result.take_id, raise_on_error=raise_on_error,

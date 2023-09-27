@@ -317,8 +317,10 @@ class DaisysAsyncSpeakClientV1:
             VoiceInfo: Information about the generated voice.
 
         """
-        params = VoiceGenerate(name=name, model=model, gender=gender, default_style=default_style,
-                               default_prosody=default_prosody)
+        params = VoiceGenerate(name=name, model=model, gender=gender,
+                               default_style=default_style,
+                               default_prosody=default_prosody,
+                               done_webhook=Webhook(post_url=done_webhook) if done_webhook else None)
         result = VoiceInfo(**await self._http('voices/generate', params))
         if wait:
             result = await self.wait_for_voices(result.voice_id, raise_on_error=raise_on_error,
@@ -360,7 +362,7 @@ class DaisysAsyncSpeakClientV1:
         if newer:     params.append(f'newer={newer}')
         return [TakeResponse(**r) for r in await self._http('?'.join(['takes', '&'.join(params)]))]
 
-    async def get_take_audio(self, take_id: str, filename=None, format: str='wav') -> bytes:
+    async def get_take_audio(self, take_id: str, file=None, format: str='wav') -> bytes:
         """Get audio associated with a ready take.
 
         Args:
@@ -373,11 +375,11 @@ class DaisysAsyncSpeakClientV1:
         """
 
         wav = await self._http(f'takes/{take_id}/{format}', decode_json=False)
-        if filename:
-            if hasattr(filename, 'write'):
-                filename.write(wav)
+        if file:
+            if hasattr(file, 'write'):
+                file.write(wav)
             else:
-                with open(filename, 'wb') as f:
+                with open(file, 'wb') as f:
                     f.write(wav)
         return wav
 
@@ -510,6 +512,8 @@ class DaisysAsyncSpeakClientV1:
                             override_language: str=None,
                             style: list[str]=None,
                             prosody: ProsodyFeaturesUnion=None,
+                            status_webhook: str=None,
+                            done_webhook: str=None,
                             wait: bool=True,
                             raise_on_error: bool=True,
                             timeout: Optional[float]=None) -> TakeResponse:
@@ -539,6 +543,13 @@ class DaisysAsyncSpeakClientV1:
                      style.  Here you can provide a SimpleProsody or most models also accept
                      the more detailed AffectProsody.
 
+            status_webhook: An optional URL to be called using ``POST`` whenever the take's
+                            status changes, with :class:`TakeResponse` in the body content.
+
+            done_webhook: An optional URL to be called exactly once using ``POST`` when the
+                          take is ``READY``, ``ERROR``, or ``TIMEOUT``, with
+                          :class:`TakeResponse` in the body content.
+
             wait: if True, wait for take to be ready before returning.
 
             raise_on_error: If True (default) a DaisysTakeGeenerateException error will be
@@ -553,7 +564,9 @@ class DaisysAsyncSpeakClientV1:
         """
         params = TakeGenerate(voice_id=voice_id, text=text,
                               override_language=override_language,
-                              style=style, prosody=prosody)
+                              style=style, prosody=prosody,
+                              status_webhook=Webhook(post_url=status_webhook) if status_webhook else None,
+                              done_webhook=Webhook(post_url=done_webhook) if done_webhook else None)
         result = TakeResponse(**await self._http('takes/generate', params))
         if wait:
             result = await self.wait_for_takes(result.take_id, raise_on_error=raise_on_error,
@@ -586,9 +599,9 @@ class DaisysAsyncSpeakClientV1:
         """
         result = [TakeResponse(**r) for r in await self._http('takes/generate', request)]
         if wait:
-            result = self.wait_for_takes([r.take_id for r in result],
-                                         raise_on_error=raise_on_error,
-                                         timeout=timeout)
+            result = await self.wait_for_takes([r.take_id for r in result],
+                                               raise_on_error=raise_on_error,
+                                               timeout=timeout)
         elif raise_on_error and any([r.status.error() for r in result]):
             raise DaisysTakeGenerateError('Take failed to generate.', response=result)
         return result
