@@ -5,7 +5,7 @@ with open("README.md", "r") as f:
 
 setup(
     name="daisys",
-    version="1.0.0",
+    version="1.0.1",
     packages=find_packages(),
     python_requires=">=3.10",
     install_requires=[
