@@ -284,7 +284,7 @@ Deleting<span class="w"> </span>voice<span class="w"> </span>v01hbbgtrvk50pxwyjv
 <span class="linenos">33</span>            <span class="c1"># First we need to know the model.</span>
 <span class="linenos">34</span>            <span class="n">models</span> <span class="o">=</span> <span class="n">speak</span><span class="o">.</span><span class="n">get_models</span><span class="p">()</span>
 <span class="linenos">35</span>            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">models</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-<span class="linenos">36</span>                <span class="n">model</span> <span class="o">=</span> <span class="n">models</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="linenos">36</span>                <span class="n">model</span> <span class="o">=</span> <span class="n">models</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 <span class="linenos">37</span>                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Using model &quot;</span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">displayname</span><span class="si">}</span><span class="s1">&quot;&#39;</span><span class="p">)</span>
 <span class="linenos">38</span>            <span class="k">else</span><span class="p">:</span>
 <span class="linenos">39</span>                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;No models found!&#39;</span><span class="p">)</span>
