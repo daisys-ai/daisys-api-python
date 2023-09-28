@@ -33,7 +33,7 @@ def main():
             # First we need to know the model.
             models = speak.get_models()
             if len(models) > 0:
-                model = models[-1]
+                model = models[0]
                 print(f'Using model "{model.displayname}"')
             else:
                 print('No models found!')

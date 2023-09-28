@@ -33,7 +33,7 @@ async def main():
             # First we need to know the model.
             models = await speak.get_models()
             if len(models) > 0:
-                model = models[-1]
+                model = models[0]
                 print(f'Using model "{model.displayname}"')
             else:
                 print('No models found!')
@@ -61,7 +61,7 @@ async def main():
 
         # The take is now READY.  We get its associated audio file.  We provide a filename
         # so that it gets written to disk, but it is also returned.
-        audio_wav = await speak.get_take_audio(take.take_id, filename='hello_daisys.wav')
+        audio_wav = await speak.get_take_audio(take.take_id, file='hello_daisys.wav')
 
         print(f'Read {len(audio_wav)} bytes of wav data, wrote "hello_daisys.wav".')
 
