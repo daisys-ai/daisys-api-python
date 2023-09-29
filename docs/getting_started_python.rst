@@ -293,7 +293,7 @@ These tokens can now be stored, and provided to the client as follows:
 
    access_token, refresh_token = json.load(open('daisys_tokens.json'))
    with DaisysAPI('speak', access_token=access_token, refresh_token=refresh_token) as speak:
-       speak.refresh_callback = store_tokens
+       speak.token_callback = store_tokens
        ...
 
 The library does *not* implement a storage and retrieval mechanism for these tokens, as it
@@ -301,6 +301,6 @@ is presumed that users will have their own files or databases for this purpose.
 
 Importantly, when an access token expires, a new one will be automatically retrieved by
 the library.  Therefore, it is useful to store ``speak.access_token`` and
-``speak.refresh_token`` whenever it changes.  The ``refresh_callback`` is provided for
+``speak.refresh_token`` whenever it changes.  The ``token_callback`` is provided for
 this purpose.  It is optional, but recommended if not using a permatoken and one wishes to
 avoid transmitting passwords.
