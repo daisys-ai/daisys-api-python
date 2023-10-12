@@ -224,17 +224,6 @@
 <h1>Getting started<a class="headerlink" href="#getting-started" title="Link to this heading">#</a></h1>
 <p>Once you confirm your email address, you will be provided access to the Daisys API via the
 email account you registered.  You have also already provided a password.</p>
-<blockquote>
-<div><p>If you have not already done so, the first step to enable your account is to set your
-password using the following <code class="docutils literal notranslate"><span class="pre">curl</span></code> command:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">X</span> <span class="n">POST</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">api</span><span class="o">.</span><span class="n">daisys</span><span class="o">.</span><span class="n">ai</span><span class="o">/</span><span class="n">auth</span><span class="o">/</span><span class="n">set_password</span> \
-  <span class="o">-</span><span class="n">H</span> <span class="s2">&quot;Content-Type: application/json&quot;</span> \
-  <span class="o">-</span><span class="n">d</span> <span class="s1">&#39;{&quot;email&quot;: &quot;&lt;email&gt;&quot;, &quot;password&quot;: &quot;&lt;provided_password&gt;&quot;, &quot;new_password&quot;: &quot;YOUR NEW PASSWORD&quot;}&#39;</span>
-</pre></div>
-</div>
-<p>The temporary password for <code class="docutils literal notranslate"><span class="pre">&lt;provided_password&gt;</span></code> should have been received by email.
-If you did not receive it, please don’t hesitate to get in touch at <a class="reference external" href="mailto:api&#37;&#52;&#48;daisys&#46;ai">api<span>&#64;</span>daisys<span>&#46;</span>ai</a>.</p>
-</div></blockquote>
 <p>At this point the API can be used.  The steps are:</p>
 <ol class="arabic simple">
 <li><p>Authentication: provide your email and password to get an access token.</p></li>
