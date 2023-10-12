@@ -4,16 +4,6 @@ Getting started
 Once you confirm your email address, you will be provided access to the Daisys API via the
 email account you registered.  You have also already provided a password.
 
-    If you have not already done so, the first step to enable your account is to set your
-    password using the following ``curl`` command::
-
-      curl -X POST https://api.daisys.ai/auth/set_password \
-        -H "Content-Type: application/json" \
-        -d '{"email": "<email>", "password": "<provided_password>", "new_password": "YOUR NEW PASSWORD"}'
-
-    The temporary password for ``<provided_password>`` should have been received by email.
-    If you did not receive it, please don't hesitate to get in touch at api@daisys.ai.
-
 At this point the API can be used.  The steps are:
 
 1. Authentication: provide your email and password to get an access token.
