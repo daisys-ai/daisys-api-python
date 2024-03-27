@@ -366,7 +366,7 @@ two.  For this, we need to use the <code class="docutils literal notranslate"><s
 <div class="code-block-caption"><span class="caption-text">Checking the voice status</span><a class="headerlink" href="#id6" title="Link to this code">#</a></div>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span>$<span class="w"> </span>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span>-H<span class="w"> </span><span class="s1">&#39;content-type: application/json&#39;</span><span class="w"> </span><span class="se">\</span>
 <span class="linenos"> 2</span>-H<span class="w"> </span><span class="s2">&quot;Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="linenos"> 3</span>https://api.daisys.ai/dev/v1/speak/voices/v01haxx5cggwz215gzv0hjbra9m<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+<span class="linenos"> 3</span>https://api.daisys.ai/v1/speak/voices/v01haxx5cggwz215gzv0hjbra9m<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
 <span class="linenos"> 4</span><span class="o">{</span>
 <span class="linenos"> 5</span><span class="w">  </span><span class="s2">&quot;name&quot;</span>:<span class="w"> </span><span class="s2">&quot;Ignacio&quot;</span>,
 <span class="linenos"> 6</span><span class="w">  </span><span class="s2">&quot;model&quot;</span>:<span class="w"> </span><span class="s2">&quot;shakespeare-pause_symbol-18-4-23&quot;</span>,
@@ -400,7 +400,7 @@ found in <a class="reference internal" href="v1/speak/endpoints.html#v1-speak-ta
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span>$<span class="w"> </span>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>-H<span class="w"> </span><span class="s1">&#39;content-type: application/json&#39;</span><span class="w"> </span><span class="se">\</span>
 <span class="linenos"> 2</span>-H<span class="w"> </span><span class="s2">&quot;Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
 <span class="linenos"> 3</span>-d<span class="w"> </span><span class="s1">&#39;{&quot;text&quot;: &quot;Hello, Daisys! It&#39;</span><span class="se">\&#39;</span><span class="s1">&#39;s a beautiful day.&quot;, &quot;voice_id&quot;: &quot;v01hasgezqjcsnc91zdfzpx0apj&quot;}&#39;</span><span class="w"> </span><span class="se">\</span>
-<span class="linenos"> 4</span>https://api.daisys.ai/dev/v1/speak/takes/generate
+<span class="linenos"> 4</span>https://api.daisys.ai/v1/speak/takes/generate
 <span class="linenos"> 5</span><span class="o">{</span>
 <span class="linenos"> 6</span><span class="w">  </span><span class="s2">&quot;text&quot;</span>:<span class="w"> </span><span class="s2">&quot;Hello, Daisys! It&#39;s a beautiful day.&quot;</span>,
 <span class="linenos"> 7</span><span class="w">  </span><span class="s2">&quot;override_language&quot;</span>:<span class="w"> </span>null,
@@ -422,7 +422,7 @@ status can be retrieved by using the <code class="docutils literal notranslate">
 <div class="literal-block-wrapper docutils container" id="id8">
 <div class="code-block-caption"><span class="caption-text">Generating a take: checking status</span><a class="headerlink" href="#id8" title="Link to this code">#</a></div>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span>$<span class="w"> </span>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span>-H<span class="w"> </span><span class="s2">&quot;Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="linenos"> 2</span>https://api.daisys.ai/dev/v1/speak/takes/t01haybgb16dn9dk0p5je47qz74<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+<span class="linenos"> 2</span>https://api.daisys.ai/v1/speak/takes/t01haybgb16dn9dk0p5je47qz74<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
 <span class="linenos"> 3</span><span class="o">{</span>
 <span class="linenos"> 4</span><span class="w">  </span><span class="s2">&quot;text&quot;</span>:<span class="w"> </span><span class="s2">&quot;Hello, Daisys! It&#39;s a beautiful day.&quot;</span>,
 <span class="linenos"> 5</span><span class="w">  </span><span class="s2">&quot;override_language&quot;</span>:<span class="w"> </span>null,
@@ -458,7 +458,7 @@ several times whenever the progress for a take changes.</p>
 <div class="code-block-caption"><span class="caption-text">Retrieving audio</span><a class="headerlink" href="#id9" title="Link to this code">#</a></div>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span>$<span class="w"> </span>curl<span class="w"> </span>-s<span class="w"> </span>-L<span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span>-H<span class="w"> </span><span class="s2">&quot;Authorization: Bearer </span><span class="nv">$ACCESS_TOKEN</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
 <span class="linenos">2</span>-o<span class="w"> </span>beautiful_day.wav<span class="w"> </span><span class="se">\</span>
-<span class="linenos">3</span>https://api.daisys.ai/dev/v1/speak/takes/t01haybgb16dn9dk0p5je47qz74/wav
+<span class="linenos">3</span>https://api.daisys.ai/v1/speak/takes/t01haybgb16dn9dk0p5je47qz74/wav
 </pre></div>
 </div>
 </div>

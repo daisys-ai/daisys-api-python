@@ -161,7 +161,7 @@ two.  For this, we need to use the ``voice_id`` provided in the response:
 
    $ curl -s -X GET -H 'content-type: application/json' \
    -H "Authorization: Bearer $ACCESS_TOKEN" \
-   https://api.daisys.ai/dev/v1/speak/voices/v01haxx5cggwz215gzv0hjbra9m | jq .
+   https://api.daisys.ai/v1/speak/voices/v01haxx5cggwz215gzv0hjbra9m | jq .
    {
      "name": "Ignacio",
      "model": "shakespeare-pause_symbol-18-4-23",
@@ -198,7 +198,7 @@ found in :ref:`v1_speak_take_endpoints`.
    $ curl -s -X POST -H 'content-type: application/json' \
    -H "Authorization: Bearer $ACCESS_TOKEN" \
    -d '{"text": "Hello, Daisys! It'\''s a beautiful day.", "voice_id": "v01hasgezqjcsnc91zdfzpx0apj"}' \
-   https://api.daisys.ai/dev/v1/speak/takes/generate
+   https://api.daisys.ai/v1/speak/takes/generate
    {
      "text": "Hello, Daisys! It's a beautiful day.",
      "override_language": null,
@@ -221,7 +221,7 @@ status can be retrieved by using the ``take_id``:
    :linenos:
 
    $ curl -s -X GET -H "Authorization: Bearer $ACCESS_TOKEN" \
-   https://api.daisys.ai/dev/v1/speak/takes/t01haybgb16dn9dk0p5je47qz74 | jq .
+   https://api.daisys.ai/v1/speak/takes/t01haybgb16dn9dk0p5je47qz74 | jq .
    {
      "text": "Hello, Daisys! It's a beautiful day.",
      "override_language": null,
@@ -262,7 +262,7 @@ The take is ready, now we can hear the result!  Audio for a take can be retrieve
 
    $ curl -s -L -X GET -H "Authorization: Bearer $ACCESS_TOKEN" \
    -o beautiful_day.wav \
-   https://api.daisys.ai/dev/v1/speak/takes/t01haybgb16dn9dk0p5je47qz74/wav
+   https://api.daisys.ai/v1/speak/takes/t01haybgb16dn9dk0p5je47qz74/wav
 
 In the above, we retrieve a ``.wav`` file and write it to disk as ``beautiful_day.wav``.
 Note that the ``-L`` flag must be provided since the file is returned through a 307
