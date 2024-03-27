@@ -690,7 +690,7 @@ class DaisysAsyncSpeakClientV1:
             result = await self._http('voices/' + voice_id,
                                       {k: v for k, v in {'name': name, 'gender': gender,
                                                          'default_style': default_style,
-                                                         'dfeault_prosody': default_prosody}
+                                                         'default_prosody': default_prosody}
                                        .items() if v is not None})
             if result is not True and raise_on_error:
                 raise DaisysVoiceUpdateError(f'Voice {voice_id} failed to update.')
