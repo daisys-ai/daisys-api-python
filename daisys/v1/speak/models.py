@@ -71,6 +71,17 @@ class VoiceGender(str, enum.Enum):
     FEMALE = 'female'
     NONBINARY = 'nonbinary'
 
+class VoiceInputType(str, enum.Enum):
+    """Represents the input that a model understands for voice generation.
+
+    Note: upper case in Python, lower case in JSON.
+
+    Values:
+      GENDER, DESCRIPTION
+    """
+    GENDER = 'gender'
+    DESCRIPTION = 'description'
+
 class Version(BaseModel):
     """Represents the version of the API.
 
@@ -270,6 +281,7 @@ class VoiceGenerate(BaseModel):
         name: A name to give the voice, may be any string, and does not need to be unique.
         model: The name of the model for this voice.  Refers to the ``name`` entry in :class:`TTSModel`.
         gender: The gender of this voice.
+        description: A description of this voice.
         default_style: An optional list of styles to associate with this voice by default.
                        It can be overriden by a take that uses this voice.  Note that
                        most styles are mutually exclusive, and not all models support
@@ -287,6 +299,7 @@ class VoiceGenerate(BaseModel):
     name: str
     model: str
     gender: VoiceGender
+    description: Optional[str]=None
     default_style: Optional[list[str]] = None
     default_prosody: Optional[ProsodyFeaturesUnion] = None
     example_take: Optional[TakeGenerateWithoutVoice] = None
@@ -337,7 +350,8 @@ class TTSModel(BaseModel):
         languages: A list of languages supported by this model.
         genders: A list of genders supported by this model.
         styles: A list of style sets; each sublist is a list of mutually exlusive style tags.
-        prosody-types: A list of which prosody types are supported by this model.
+        prosody_types: A list of which prosody types are supported by this model.
+        voice_inputs: A list of which voice input types are supported by this model.
     """
     name: str
     displayname: str
@@ -346,3 +360,4 @@ class TTSModel(BaseModel):
     genders: list[VoiceGender]
     styles: list[list[str]]=[]
     prosody_types: list[ProsodyType]
+    voice_inputs: Optional[list[VoiceInputType]]

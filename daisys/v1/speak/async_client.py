@@ -296,6 +296,7 @@ class DaisysAsyncSpeakClientV1:
                              name: str,
                              model: str,
                              gender: VoiceGender,
+                             description: Optional[str]=None,
                              default_style: list[str]=[],
                              default_prosody: ProsodyFeaturesUnion=None,
                              done_webhook: str=None,
@@ -309,6 +310,7 @@ class DaisysAsyncSpeakClientV1:
             name: A name to give the voice, may be any string, and does not need to be unique.
             model: The name of the model for this voice.
             gender: The gender of this voice.
+            description: The description of this voice.
             default_style: An optional list of styles to associate with this voice by
                            default.  It can be overriden by a take that uses this voice.
                            Note that most styles are mutually exclusive, and not all
@@ -332,6 +334,7 @@ class DaisysAsyncSpeakClientV1:
 
         """
         params = VoiceGenerate(name=name, model=model, gender=gender,
+                               description=description,
                                default_style=default_style,
                                default_prosody=default_prosody,
                                done_webhook=Webhook(post_url=done_webhook) if done_webhook else None)
@@ -681,6 +684,7 @@ class DaisysAsyncSpeakClientV1:
     async def update_voice(self, voice_id: str,
                            name: str=None,
                            gender: VoiceGender=None,
+                           description: Optional[str]=None,
                            default_style: list[str]=None,
                            default_prosody: ProsodyFeaturesUnion=None,
                            raise_on_error: bool=True,
@@ -689,6 +693,15 @@ class DaisysAsyncSpeakClientV1:
 
         Args:
             voice_id: the id of a voice to update.
+            name: A name to give the voice, may be any string, and does not need to be unique.
+            gender: The gender of this voice.
+            description: The description of this voice.
+            default_style: An optional list of styles to associate with this voice by
+                           default.  It can be overriden by a take that uses this voice.
+                           Note that most styles are mutually exclusive, and not all
+                           models support styles.
+            default_prosody: An optional default prosody to associate with this voice.  It
+                             can be overridden by a take that uses this voice.
 
             raise_on_error: If True (default) a DaisysVoiceUpdateException error will be
                             raised if the voice was not found.  (That is, if the function
@@ -703,6 +716,7 @@ class DaisysAsyncSpeakClientV1:
         try:
             result = await self._http('voices/' + voice_id,
                                       {k: v for k, v in {'name': name, 'gender': gender,
+                                                         'description': description,
                                                          'default_style': default_style,
                                                          'default_prosody': default_prosody}
                                        .items() if v is not None})
