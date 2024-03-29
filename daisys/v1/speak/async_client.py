@@ -45,7 +45,7 @@ class DaisysAsyncSpeakClientV1:
         self.redirect_cache_timeout = 60 * 10
         self.redirect_cache = dict()
 
-    async def login(self, email: str=None, password: str=None) -> bool:
+    async def login(self, email: Optional[str]=None, password: Optional[str]=None) -> bool:
         """Log in to the Daisys API using the provided credentials.
 
         If successful, nothing is returned.  An access token is stored in the client for
@@ -79,7 +79,7 @@ class DaisysAsyncSpeakClientV1:
             self.token_callback(self.access_token, self.refresh_token)
         return True
 
-    async def logout(self, refresh_token: str=None) -> bool:
+    async def logout(self, refresh_token: Optional[str]=None) -> bool:
         """Log out of the Daisys API.  Revokes the refresh token and and forgets the
         access and refresh tokens.
 
@@ -140,7 +140,7 @@ class DaisysAsyncSpeakClientV1:
                 response.raise_for_status()
             return response.is_success
 
-    async def _http(self, query: str, body: Union[dict,list]=None, decode_json=True,
+    async def _http(self, query: str, body: Optional[Union[dict,list]]=None, decode_json=True,
                     cache_redirect=False, delete=False) -> dict:
         """Private function to Perform an HTTP request on behalf of the client. Handles
         auto-login, token refresh, and redirect caching automatically."""
@@ -253,8 +253,8 @@ class DaisysAsyncSpeakClientV1:
         """
         return VoiceInfo(**await self._http('voices/' + voice_id))
 
-    async def get_voices(self, length: int=None, page: int=None,
-                         older: int=None, newer: int=None) -> list[VoiceInfo]:
+    async def get_voices(self, length: Optional[int]=None, page: Optional[int]=None,
+                         older: Optional[int]=None, newer: Optional[int]=None) -> list[VoiceInfo]:
         """Get a list of voices, optionally filtered.
 
         Args:
@@ -297,11 +297,11 @@ class DaisysAsyncSpeakClientV1:
                              model: str,
                              gender: VoiceGender,
                              description: Optional[str]=None,
-                             default_style: list[str]=[],
-                             default_prosody: ProsodyFeaturesUnion=None,
-                             done_webhook: str=None,
-                             wait: bool=True,
-                             raise_on_error: bool=True,
+                             default_style: Optional[list[str]]=None,
+                             default_prosody: Optional[ProsodyFeaturesUnion]=None,
+                             done_webhook: Optional[str]=None,
+                             wait: Optional[bool]=True,
+                             raise_on_error: Optional[bool]=True,
                              timeout: Optional[float]=None,
                              ) -> VoiceInfo:
         """Generate a random, novel voice for a given model with desired properties.
@@ -357,8 +357,9 @@ class DaisysAsyncSpeakClientV1:
         """
         return TakeResponse(**await self._http('takes/' + take_id, cache_redirect=True))
 
-    async def get_takes(self, take_ids: list[str]=None, length: int=None,
-                        page: int=None, older: int=None, newer: int=None) -> list[TakeResponse]:
+    async def get_takes(self, take_ids: Optional[list[str]]=None, length: Optional[int]=None,
+                        page: Optional[int]=None, older: Optional[int]=None,
+                        newer: Optional[int]=None) -> list[TakeResponse]:
         """Get a list of takes, optionally filtered.
 
         Args:
@@ -379,7 +380,7 @@ class DaisysAsyncSpeakClientV1:
         if newer:     params.append(f'newer={newer}')
         return [TakeResponse(**r) for r in await self._http('?'.join(['takes', '&'.join(params)]))]
 
-    async def get_take_audio(self, take_id: str, file=None, format: str='wav') -> bytes:
+    async def get_take_audio(self, take_id: str, file: Optional[str]=None, format: str='wav') -> bytes:
         """Get audio associated with a ready take.
 
         Args:
@@ -402,9 +403,9 @@ class DaisysAsyncSpeakClientV1:
 
     async def wait_for_takes(self, take_ids: Union[str, list[str]],
                              sleep_seconds=0.5,
-                             callback: Callable[[Union[TakeResponse,list[TakeResponse]]], None]=None,
-                             async_callback: Callable[[Union[TakeResponse,list[TakeResponse]]],
-                                                      Awaitable[None]]=None,
+                             callback: Optional[Callable[[Union[TakeResponse,list[TakeResponse]]], None]]=None,
+                             async_callback: Optional[Callable[[Union[TakeResponse,list[TakeResponse]]],
+                                                               Awaitable[None]]]=None,
                              raise_on_error: bool=True,
                              timeout: Optional[float]=None,
                              ) -> Union[TakeResponse, list[TakeResponse]]:
@@ -526,11 +527,11 @@ class DaisysAsyncSpeakClientV1:
     async def generate_take(self,
                             voice_id: str,
                             text: str,
-                            override_language: str=None,
+                            override_language: Optional[str]=None,
                             style: list[str]=None,
-                            prosody: ProsodyFeaturesUnion=None,
-                            status_webhook: str=None,
-                            done_webhook: str=None,
+                            prosody: Optional[ProsodyFeaturesUnion]=None,
+                            status_webhook: Optional[str]=None,
+                            done_webhook: Optional[str]=None,
                             wait: bool=True,
                             raise_on_error: bool=True,
                             timeout: Optional[float]=None) -> TakeResponse:
@@ -682,11 +683,11 @@ class DaisysAsyncSpeakClientV1:
             raise
 
     async def update_voice(self, voice_id: str,
-                           name: str=None,
-                           gender: VoiceGender=None,
+                           name: Optional[str]=None,
+                           gender: Optional[VoiceGender]=None,
                            description: Optional[str]=None,
-                           default_style: list[str]=None,
-                           default_prosody: ProsodyFeaturesUnion=None,
+                           default_style: Optional[list[str]]=None,
+                           default_prosody: Optional[ProsodyFeaturesUnion]=None,
                            raise_on_error: bool=True,
                            **_kwargs) -> bool:
         """Update a voice.  The voice will no longer appear in return values from get_voices.

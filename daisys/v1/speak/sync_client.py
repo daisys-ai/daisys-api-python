@@ -44,7 +44,7 @@ class DaisysSyncSpeakClientV1:
         self.redirect_cache_timeout = 60 * 10
         self.redirect_cache = dict()
 
-    def login(self, email: str=None, password: str=None) -> bool:
+    def login(self, email: Optional[str]=None, Optional[password]: str=None) -> bool:
         """Log in to the Daisys API using the provided credentials.
 
         If successful, nothing is returned.  An access token is stored in the client for
@@ -78,7 +78,7 @@ class DaisysSyncSpeakClientV1:
             self.token_callback(self.access_token, self.refresh_token)
         return True
 
-    def logout(self, refresh_token: str=None) -> bool:
+    def logout(self, refresh_token: Optional[str]=None) -> bool:
         """Log out of the Daisys API.  Revokes the refresh token and and forgets the
         access and refresh tokens.
 
@@ -144,7 +144,7 @@ class DaisysSyncSpeakClientV1:
                 response.raise_for_status()
             return response.is_success
 
-    def _http(self, query: str, body: Union[dict,list]=None, decode_json=True,
+    def _http(self, query: str, body: Optional[Union[dict,list]]=None, decode_json=True,
               cache_redirect=False, delete=False) -> dict:
         """Private function to perform an HTTP request on behalf of the client. Handles
         auto-login, token refresh, and redirect caching automatically."""
@@ -257,8 +257,8 @@ class DaisysSyncSpeakClientV1:
         """
         return VoiceInfo(**self._http('voices/' + voice_id))
 
-    def get_voices(self, length: int=None, page: int=None,
-                   older: int=None, newer: int=None) -> list[VoiceInfo]:
+    def get_voices(self, length: Optional[int]=None, page: Optional[int]=None,
+                   older: Optional[int]=None, newer: Optional[int]=None) -> list[VoiceInfo]:
         """Get a list of voices, optionally filtered.
 
         Args:
@@ -301,9 +301,9 @@ class DaisysSyncSpeakClientV1:
                        model: str,
                        gender: VoiceGender,
                        description: Optional[str]=None,
-                       default_style: list[str]=[],
-                       default_prosody: ProsodyFeaturesUnion=None,
-                       done_webhook: str=None,
+                       default_style: Optional[list[str]]=None,
+                       default_prosody: Optional[ProsodyFeaturesUnion]=None,
+                       done_webhook: Optional[str]=None,
                        wait: bool=True,
                        raise_on_error: bool=True,
                        timeout: Optional[float]=None,
@@ -361,8 +361,9 @@ class DaisysSyncSpeakClientV1:
         """
         return TakeResponse(**self._http('takes/' + take_id))
 
-    def get_takes(self, take_ids: list[str]=None, length: int=None,
-                  page: int=None, older: int=None, newer: int=None) -> list[TakeResponse]:
+    def get_takes(self, take_ids: Optional[list[str]]=None, Optional[length]: int=None,
+                  page: Optional[int]=None, older: Optional[int]=None,
+                  newer: Optional[int]=None) -> list[TakeResponse]:
         """Get a list of takes, optionally filtered.
 
         Args:
@@ -406,9 +407,9 @@ class DaisysSyncSpeakClientV1:
 
     def wait_for_takes(self, take_ids: Union[str, list[str]],
                        sleep_seconds=0.5,
-                       callback: Callable[[Union[TakeResponse,list[TakeResponse]]], None]=None,
-                       async_callback: Callable[[Union[TakeResponse,list[TakeResponse]]],
-                                                Awaitable[None]]=None,
+                       callback: Optional[Callable[[Union[TakeResponse,list[TakeResponse]]], None]]=None,
+                       async_callback: Optional[Callable[[Union[TakeResponse,list[TakeResponse]]],
+                                                         Awaitable[None]]]=None,
                        raise_on_error: bool=True,
                        timeout: Optional[float]=None,
                        ) -> Union[TakeResponse, list[TakeResponse]]:
@@ -530,11 +531,11 @@ class DaisysSyncSpeakClientV1:
     def generate_take(self,
                       voice_id: str,
                       text: str,
-                      override_language: str=None,
-                      style: list[str]=None,
-                      prosody: ProsodyFeaturesUnion=None,
-                      status_webhook: str=None,
-                      done_webhook: str=None,
+                      override_language: Optional[str]=None,
+                      style: Optional[list[str]]=None,
+                      prosody: Optional[ProsodyFeaturesUnion]=None,
+                      status_webhook: Optional[str]=None,
+                      done_webhook: Optional[str]=None,
                       wait: bool=True,
                       raise_on_error: bool=True,
                       timeout: Optional[float]=None) -> TakeResponse:
@@ -686,11 +687,11 @@ class DaisysSyncSpeakClientV1:
             raise
 
     def update_voice(self, voice_id: str,
-                     name: str=None,
-                     gender: VoiceGender=None,
+                     name: Optional[str]=None,
+                     gender: Optional[VoiceGender]=None,
                      description: Optional[str]=None,
-                     default_style: list[str]=None,
-                     default_prosody: ProsodyFeaturesUnion=None,
+                     default_style: Optional[list[str]]=None,
+                     default_prosody: Optional[ProsodyFeaturesUnion]=None,
                      raise_on_error: bool=True,
                      **_kwargs) -> bool:
         """Update a voice.
