@@ -9,12 +9,12 @@ For generating speech audio, the Daisys API supports input text that can include
 Input Text Customization
 ------------------------
 
-Our models employ a powerful ``Normalizer`` (Advanced Text and SSML Tag Processor tool)
+Our models employ a powerful ``Normalizer`` (Advanced Text and SSML Tag Processing tool)
 designed to process and normalize text, making it more readable and coherent. It is
 equipped with a default pipeline of operations to apply on the input text, but it also
 allows for customizing the normalization process according to specific needs.
 
-Processor applies a series of pre-defined steps by default to transform your text:
+The Normalizer applies a series of pre-defined steps by default to transform the text:
 
 Default pipeline:
 
@@ -22,11 +22,13 @@ Default pipeline:
    versions (e.g., "Mister").
 2. **Acronyms:** Acronyms will be processed and insert small pause between letter for
    better pronunciation (e.g., "10 AM" to "10 A M").
-3. **URLs:** Replaces URLs with a more human-readable description. (e.g. "As an example of
+3. **Road numbers:** Converts road numbers by inserting a space, similar to acronyms (e.g. "A263" becomes "A 263").
+4. **URLs:** Replaces URLs with a more human-readable description. (e.g. "As an example of
    https://google.com" to "As an example of google dot com.")
-4. **Numbers:** Converts numerical expressions to their spoken form (e.g., "10" to "ten",
+5. **Numbers:** Converts numerical expressions to their spoken form (e.g., "10" to "ten",
    "$40" to "forty dollars").
-5. **Punctuation Repeats:** Simplifies repeated punctuation (e.g., "Hey!!!!" to "Hey!").
+6. **Punctuation Repeats:** Simplifies repeated punctuation (e.g., "Hey!!!!" to "Hey!").
+7. **Units:** Converts units such as "km/h" to their spoken form ("kilometer(s) per hour").
 
 Advanced Capabilities:
 ----------------------
@@ -40,19 +42,19 @@ SSML is based on the World Wide Web Consortium's "Speech Synthesis Markup Langu
 Voice Tag
 ^^^^^^^^^
 
-The voice tag is used when the specific part of text that requests a change in speaking
-voice (e.g. language). Input text might include excerpt in other languages. Our advanced
-automatic language prediction algorithm captures these parts and inserts a voice tag with
-proper language attribute. This allows model to apply required language change for that
-section. This tag can be manually added to input text. Normalization will be applied based
-on defined language for voice tag section.
+The voice tag is used when a specific text segment comes from a different language than
+the base language of that model. Our advanced automatic language prediction algorithm captures these parts
+and inserts a voice tag with the proper language attribute. 
+This allows the model to apply required language change for that section. 
+This tag can be manually added to input text. Normalization will be applied based
+on the defined language for voice tag section.
 
 Example usage:
 
 .. code-block:: html
 
     Input: 
-      The parking season ticket was valid <voice language="en"> t/m 09-01-2010</voice>.
+      The parking season ticket was valid <voice language="nl">t/m 09-01-2010</voice>.
     Normalizer output:
       The parking season ticket was valid tot en met negen januari tweeduizend tien.
 
@@ -60,60 +62,44 @@ Example usage:
 Phoneme Tag
 ^^^^^^^^^^^
 
-The phoneme tag provides specific pronunciation phonemization for model. The model will
+The phoneme tag provides control over the phonemization for the model. The model will
 use this pronunciation.
 
 Example usage:
 
 .. code-block:: html
 
-      De <phoneme ph="ɣ ə k l øː r d ə"> gekleurde </phoneme> bevolking van een land.
+      De <phoneme ph="ɣ ə k l øː r d ə">gekleurde</phoneme> vlag van een land.
 
 
 ..
 
-    📌 Note: Phonemes need to be separated by space. In case of multiple words, they should be separated by `@` symbol (e.g. `De ernstige kapitein` → `d ə @ ɛ r n s t ə ɣ ə @ k ɑ p i t ɛɪ n`)
+    📌 Note: Phonemes need to be separated by a space. In case of multiple words, they should be separated by the `@` symbol (e.g. `De ernstige kapitein` → `d ə @ ɛ r n s t ə ɣ ə @ k ɑ p i t ɛɪ n`)
 
 Say-as Tag
 ^^^^^^^^^^
 
-The say-as tags allow users to specify the type of text to be normalized. Say-as tag has
-two attributes ``interpret_as`` and ``format``. Main attribute is ``interpret_as``,
-``format`` follows ``interpet_as`` attribute.
+The say-as tags allow users to interpret some specific types of text in a certain way.
 
 Supported attributes:
-
-``interpret_as``
-
 1. spell-out
-2. number
+2. year
 3. date
 4. time
-5. currency
 
-format
-""""""
-
-``interpret_as=number``
-
-1. cardinal
-2. ordinal
-3. year
 
 Example usage:
 
 .. code-block:: html
 
-    Input: 
-      Vandaag is <say-as interpret-as="number" format="ordinal"> 3. </say-as> dag van de week.
-      Vandaag is <say-as interpret-as="number" format="cardinal"> 3. </say-as> dag van de week.
-      Het was <say-as interpret-as="number" format="year"> 1800 </say-as>.
-      Horen om <say-as interpret-as="time">13.10</say-as>.
-      Ik ben geboren op <say-as interpret-as="date"> 11.4.1984 </say-as>.
+    Input:
+      Mijn naam spel je als <say-as interpret-as="spell-out">Fred</say-as>.
+      Het was <say-as interpret-as="year">1944</say-as>.
+      Ik vertrek om <say-as interpret-as="time">13.10</say-as>.
+      Ik ben geboren op <say-as interpret-as="date">11.4.1984</say-as>.
 
     Output:
-      Vandaag is derde dag van de week.
-      Vandaag is drie dag van de week.
-      Het was achttienhonderd. 
-      Horen om tien over één.
+      Mijn naam spel je als F r e d.
+      Het was negentien vierenveertig. 
+      Ik vertrek om tien over één.
       Ik ben geboren op elf april negentien vierentachtig.
