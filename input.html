@@ -227,22 +227,24 @@ be used.</p>
 <p>For generating speech audio, the Daisys API supports input text that can include certain directives.</p>
 <section id="input-text-customization">
 <h2>Input Text Customization<a class="headerlink" href="#input-text-customization" title="Link to this heading">#</a></h2>
-<p>Our models employ a powerful <code class="docutils literal notranslate"><span class="pre">Normalizer</span></code> (Advanced Text and SSML Tag Processor tool)
+<p>Our models employ a powerful <code class="docutils literal notranslate"><span class="pre">Normalizer</span></code> (Advanced Text and SSML Tag Processing tool)
 designed to process and normalize text, making it more readable and coherent. It is
 equipped with a default pipeline of operations to apply on the input text, but it also
 allows for customizing the normalization process according to specific needs.</p>
-<p>Processor applies a series of pre-defined steps by default to transform your text:</p>
+<p>The Normalizer applies a series of pre-defined steps by default to transform the text:</p>
 <p>Default pipeline:</p>
 <ol class="arabic simple">
 <li><p><strong>Abbreviations:</strong> Converts common abbreviations like “Mr.” to their full spoken
 versions (e.g., “Mister”).</p></li>
 <li><p><strong>Acronyms:</strong> Acronyms will be processed and insert small pause between letter for
 better pronunciation (e.g., “10 AM” to “10 A M”).</p></li>
+<li><p><strong>Road numbers:</strong> Converts road numbers by inserting a space, similar to acronyms (e.g. “A263” becomes “A 263”).</p></li>
 <li><p><strong>URLs:</strong> Replaces URLs with a more human-readable description. (e.g. “As an example of
 <a class="reference external" href="https://google.com">https://google.com</a>” to “As an example of google dot com.”)</p></li>
 <li><p><strong>Numbers:</strong> Converts numerical expressions to their spoken form (e.g., “10” to “ten”,
 “$40” to “forty dollars”).</p></li>
 <li><p><strong>Punctuation Repeats:</strong> Simplifies repeated punctuation (e.g., “Hey!!!!” to “Hey!”).</p></li>
+<li><p><strong>Units:</strong> Converts units such as “km/h” to their spoken form (“kilometer(s) per hour”).</p></li>
 </ol>
 </section>
 <section id="advanced-capabilities">
@@ -252,15 +254,15 @@ SSML is based on the World Wide Web Consortium’s “Speech Synthesis Markup L
 1.0”.  Partially supports <cite>voice</cite> , <cite>phoneme</cite> and <cite>say-as</cite> tags.</p>
 <section id="voice-tag">
 <h3>Voice Tag<a class="headerlink" href="#voice-tag" title="Link to this heading">#</a></h3>
-<p>The voice tag is used when the specific part of text that requests a change in speaking
-voice (e.g. language). Input text might include excerpt in other languages. Our advanced
-automatic language prediction algorithm captures these parts and inserts a voice tag with
-proper language attribute. This allows model to apply required language change for that
-section. This tag can be manually added to input text. Normalization will be applied based
-on defined language for voice tag section.</p>
+<p>The voice tag is used when a specific text segment comes from a different language than
+the base language of that model. Our advanced automatic language prediction algorithm captures these parts
+and inserts a voice tag with the proper language attribute.
+This allows the model to apply required language change for that section.
+This tag can be manually added to input text. Normalization will be applied based
+on the defined language for voice tag section.</p>
 <p>Example usage:</p>
 <div class="highlight-html notranslate"><div class="highlight"><pre><span></span>Input:
-  The parking season ticket was valid <span class="p">&lt;</span><span class="nt">voice</span> <span class="na">language</span><span class="o">=</span><span class="s">&quot;en&quot;</span><span class="p">&gt;</span> t/m 09-01-2010<span class="p">&lt;/</span><span class="nt">voice</span><span class="p">&gt;</span>.
+  The parking season ticket was valid <span class="p">&lt;</span><span class="nt">voice</span> <span class="na">language</span><span class="o">=</span><span class="s">&quot;nl&quot;</span><span class="p">&gt;</span>t/m 09-01-2010<span class="p">&lt;/</span><span class="nt">voice</span><span class="p">&gt;</span>.
 Normalizer output:
   The parking season ticket was valid tot en met negen januari tweeduizend tien.
 </pre></div>
@@ -268,55 +270,38 @@ Normalizer output:
 </section>
 <section id="phoneme-tag">
 <h3>Phoneme Tag<a class="headerlink" href="#phoneme-tag" title="Link to this heading">#</a></h3>
-<p>The phoneme tag provides specific pronunciation phonemization for model. The model will
+<p>The phoneme tag provides control over the phonemization for the model. The model will
 use this pronunciation.</p>
 <p>Example usage:</p>
-<div class="highlight-html notranslate"><div class="highlight"><pre><span></span>De <span class="p">&lt;</span><span class="nt">phoneme</span> <span class="na">ph</span><span class="o">=</span><span class="s">&quot;ɣ ə k l øː r d ə&quot;</span><span class="p">&gt;</span> gekleurde <span class="p">&lt;/</span><span class="nt">phoneme</span><span class="p">&gt;</span> bevolking van een land.
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span>De <span class="p">&lt;</span><span class="nt">phoneme</span> <span class="na">ph</span><span class="o">=</span><span class="s">&quot;ɣ ə k l øː r d ə&quot;</span><span class="p">&gt;</span>gekleurde<span class="p">&lt;/</span><span class="nt">phoneme</span><span class="p">&gt;</span> vlag van een land.
 </pre></div>
 </div>
 <blockquote>
-<div><p>📌 Note: Phonemes need to be separated by space. In case of multiple words, they should be separated by <cite>&#64;</cite> symbol (e.g. <cite>De ernstige kapitein</cite> → <cite>d ə &#64; ɛ r n s t ə ɣ ə &#64; k ɑ p i t ɛɪ n</cite>)</p>
+<div><p>📌 Note: Phonemes need to be separated by a space. In case of multiple words, they should be separated by the <cite>&#64;</cite> symbol (e.g. <cite>De ernstige kapitein</cite> → <cite>d ə &#64; ɛ r n s t ə ɣ ə &#64; k ɑ p i t ɛɪ n</cite>)</p>
 </div></blockquote>
 </section>
 <section id="say-as-tag">
 <h3>Say-as Tag<a class="headerlink" href="#say-as-tag" title="Link to this heading">#</a></h3>
-<p>The say-as tags allow users to specify the type of text to be normalized. Say-as tag has
-two attributes <code class="docutils literal notranslate"><span class="pre">interpret_as</span></code> and <code class="docutils literal notranslate"><span class="pre">format</span></code>. Main attribute is <code class="docutils literal notranslate"><span class="pre">interpret_as</span></code>,
-<code class="docutils literal notranslate"><span class="pre">format</span></code> follows <code class="docutils literal notranslate"><span class="pre">interpet_as</span></code> attribute.</p>
-<p>Supported attributes:</p>
-<p><code class="docutils literal notranslate"><span class="pre">interpret_as</span></code></p>
-<ol class="arabic simple">
-<li><p>spell-out</p></li>
-<li><p>number</p></li>
-<li><p>date</p></li>
-<li><p>time</p></li>
-<li><p>currency</p></li>
-</ol>
-<section id="format">
-<h4>format<a class="headerlink" href="#format" title="Link to this heading">#</a></h4>
-<p><code class="docutils literal notranslate"><span class="pre">interpret_as=number</span></code></p>
-<ol class="arabic simple">
-<li><p>cardinal</p></li>
-<li><p>ordinal</p></li>
-<li><p>year</p></li>
-</ol>
+<p>The say-as tags allow users to interpret some specific types of text in a certain way.</p>
+<p>Supported attributes:
+1. spell-out
+2. year
+3. date
+4. time</p>
 <p>Example usage:</p>
 <div class="highlight-html notranslate"><div class="highlight"><pre><span></span>Input:
-  Vandaag is <span class="p">&lt;</span><span class="nt">say-as</span> <span class="na">interpret-as</span><span class="o">=</span><span class="s">&quot;number&quot;</span> <span class="na">format</span><span class="o">=</span><span class="s">&quot;ordinal&quot;</span><span class="p">&gt;</span> 3. <span class="p">&lt;/</span><span class="nt">say-as</span><span class="p">&gt;</span> dag van de week.
-  Vandaag is <span class="p">&lt;</span><span class="nt">say-as</span> <span class="na">interpret-as</span><span class="o">=</span><span class="s">&quot;number&quot;</span> <span class="na">format</span><span class="o">=</span><span class="s">&quot;cardinal&quot;</span><span class="p">&gt;</span> 3. <span class="p">&lt;/</span><span class="nt">say-as</span><span class="p">&gt;</span> dag van de week.
-  Het was <span class="p">&lt;</span><span class="nt">say-as</span> <span class="na">interpret-as</span><span class="o">=</span><span class="s">&quot;number&quot;</span> <span class="na">format</span><span class="o">=</span><span class="s">&quot;year&quot;</span><span class="p">&gt;</span> 1800 <span class="p">&lt;/</span><span class="nt">say-as</span><span class="p">&gt;</span>.
-  Horen om <span class="p">&lt;</span><span class="nt">say-as</span> <span class="na">interpret-as</span><span class="o">=</span><span class="s">&quot;time&quot;</span><span class="p">&gt;</span>13.10<span class="p">&lt;/</span><span class="nt">say-as</span><span class="p">&gt;</span>.
-  Ik ben geboren op <span class="p">&lt;</span><span class="nt">say-as</span> <span class="na">interpret-as</span><span class="o">=</span><span class="s">&quot;date&quot;</span><span class="p">&gt;</span> 11.4.1984 <span class="p">&lt;/</span><span class="nt">say-as</span><span class="p">&gt;</span>.
+  Mijn naam spel je als <span class="p">&lt;</span><span class="nt">say-as</span> <span class="na">interpret-as</span><span class="o">=</span><span class="s">&quot;spell-out&quot;</span><span class="p">&gt;</span>Fred<span class="p">&lt;/</span><span class="nt">say-as</span><span class="p">&gt;</span>.
+  Het was <span class="p">&lt;</span><span class="nt">say-as</span> <span class="na">interpret-as</span><span class="o">=</span><span class="s">&quot;year&quot;</span><span class="p">&gt;</span>1944<span class="p">&lt;/</span><span class="nt">say-as</span><span class="p">&gt;</span>.
+  Ik vertrek om <span class="p">&lt;</span><span class="nt">say-as</span> <span class="na">interpret-as</span><span class="o">=</span><span class="s">&quot;time&quot;</span><span class="p">&gt;</span>13.10<span class="p">&lt;/</span><span class="nt">say-as</span><span class="p">&gt;</span>.
+  Ik ben geboren op <span class="p">&lt;</span><span class="nt">say-as</span> <span class="na">interpret-as</span><span class="o">=</span><span class="s">&quot;date&quot;</span><span class="p">&gt;</span>11.4.1984<span class="p">&lt;/</span><span class="nt">say-as</span><span class="p">&gt;</span>.
 
 Output:
-  Vandaag is derde dag van de week.
-  Vandaag is drie dag van de week.
-  Het was achttienhonderd.
-  Horen om tien over één.
+  Mijn naam spel je als F r e d.
+  Het was negentien vierenveertig.
+  Ik vertrek om tien over één.
   Ik ben geboren op elf april negentien vierentachtig.
 </pre></div>
 </div>
-</section>
 </section>
 </section>
 </section>
@@ -381,10 +366,7 @@ Output:
 <li><a class="reference internal" href="#advanced-capabilities">Advanced Capabilities:</a><ul>
 <li><a class="reference internal" href="#voice-tag">Voice Tag</a></li>
 <li><a class="reference internal" href="#phoneme-tag">Phoneme Tag</a></li>
-<li><a class="reference internal" href="#say-as-tag">Say-as Tag</a><ul>
-<li><a class="reference internal" href="#format">format</a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#say-as-tag">Say-as Tag</a></li>
 </ul>
 </li>
 </ul>
