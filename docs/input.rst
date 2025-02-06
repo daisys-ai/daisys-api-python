@@ -44,8 +44,8 @@ Voice Tag
 
 The voice tag is used when a specific text segment comes from a different language than
 the base language of that model. Our advanced automatic language prediction algorithm captures these parts
-and inserts a voice tag with the proper language attribute. 
-This allows the model to apply required language change for that section. 
+and inserts a voice tag with the proper language attribute.
+This allows the model to apply required language change for that section.
 This tag can be manually added to input text. Normalization will be applied based
 on the defined language for voice tag section.
 
@@ -53,7 +53,7 @@ Example usage:
 
 .. code-block:: html
 
-    Input: 
+    Input:
       The parking season ticket was valid <voice language="nl">t/m 09-01-2010</voice>.
     Normalizer output:
       The parking season ticket was valid tot en met negen januari tweeduizend tien.
@@ -100,6 +100,22 @@ Example usage:
 
     Output:
       Mijn naam spel je als F r e d.
-      Het was negentien vierenveertig. 
+      Het was negentien vierenveertig.
       Ik vertrek om tien over één.
       Ik ben geboren op elf april negentien vierentachtig.
+
+w Tag
+^^^^^
+
+The `<w>` tag allows the user to select the correct pronunciation for a word based on the part of speech and meaning.
+The part-of-speech tags from the [Penn Treebank](https://www.ling.upenn.edu/courses/Fall_2003/ling001/penn_treebank_pos.html) are used.
+
+Example options:
+
+- `<w role="daisys:VB">read</w>` : verb, present tense
+- `<w role="daisys:VBD">read</w>` : verb, past tense
+- `<w role="daisys:NN">wind</w>` : noun
+- `<w role="daisys:JJ">live</w>` : adjective
+- `<w role="daisys:RB">live</w>` : adverb
+- `<w role="daisys:NN" sense="daisys:DEFAULT">bass</w>` : default meaning/pronunciation (in the example: the music-related sense)
+- `<w role="daisys:NN" sense="daisys:SENSE_1">bass</w>` : first non-default meaning/pronunciation (in the example: the fish)
