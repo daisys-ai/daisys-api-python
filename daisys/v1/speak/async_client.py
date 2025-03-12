@@ -2,13 +2,20 @@ from typing import Union, Callable, Awaitable, Optional
 import time
 import asyncio
 import json
+import queue
 
 import httpx
+try:
+    import httpx_ws
+    websockets_supported = True
+except:
+    websockets_supported = False
 
 from .models import *
 from .exceptions import (DaisysTakeGenerateError, DaisysVoiceGenerateError,
                          DaisysTakeDeletionError, DaisysVoiceDeletionError, 
                          DaisysVoiceUpdateError, DaisysCredentialsError)
+from .async_websocket import DaisysAsyncSpeakWebsocketV1
 
 class DaisysAsyncSpeakClientV1:
     """Wrapper for Daisys v1 API endpoints, asynchronous version."""
@@ -731,3 +738,45 @@ class DaisysAsyncSpeakClientV1:
                 else:
                     return False
             raise
+
+    async def websocket_url(self, model: str=None, voice_id: str=None,
+                            raise_on_error: bool=True) -> str:
+        """Get a URL for connecting a websocket.  Must specify model or voice_id
+        in order to indicate the principle model to be used on this connection.
+
+        Args:
+            model: the model for which we want to retrieve a websocket URL.
+            voice_id: the id of a voice for which we want to retrieve a websocket URL.
+
+            raise_on_error: If True (default) an error will be raised if the
+                            voice was not found or the URL could not be
+                            retrieved.
+
+        Returns:
+            str: The URL to connect a websocket to.
+
+        """
+        if voice_id:
+            voice = await self.get_voice(voice_id)
+            model = voice.model
+        assert model is not None, "A model or voice must be provided."
+        result = await self._http('websocket/' + model, decode_json=True)
+        return result["worker_websocket_url"]
+
+    def websocket(self, model: str=None, voice_id: str=None) -> DaisysAsyncSpeakWebsocketV1:
+        """Get an interface to the websocket that manages the connection, allows
+        making voice generate and take generate reqeusts, and handles streaming
+        the resulting audio.
+
+        This provided interface is intended to be used in an ``async with`` clause.
+
+        Args:
+            model: a websocket connection requires specifying a model or voice
+            voice_id: if model is not provided, voice_id must be provided
+
+        Returns:
+            :class:`.DaisysAsyncSpeakWebsocketV1`
+        """
+        if not websockets_supported:
+            raise RuntimeError("Please install httpx_ws to have websocket support.")
+        return DaisysAsyncSpeakWebsocketV1(self, model, voice_id)

@@ -3,7 +3,8 @@
 __all__ = ['Status', 'VoiceGender', 'Version', 'ProsodyFeatures', 'SimpleProsody',
            'AffectProsody', 'SignalProsody', 'ProsodyFeaturesUnion', 'ProsodyType',
            'TakeGenerate', 'TakeGenerateWithoutVoice', 'TakeInfo', 'TakeResponse',
-           'VoiceGenerate', 'VoiceInfo', 'VoiceUpdate', 'TTSModel', 'Webhook']
+           'VoiceGenerate', 'VoiceInfo', 'VoiceUpdate', 'TTSModel', 'Webhook',
+           'StreamOptions', 'StreamMode']
 
 import enum
 import json
@@ -361,3 +362,36 @@ class TTSModel(BaseModel):
     styles: list[list[str]]=[]
     prosody_types: list[ProsodyType]
     voice_inputs: Optional[list[VoiceInputType]]
+
+class StreamMode(str, enum.Enum):
+    """Whether a websocket messages should contain a whole part or chunks of parts.
+
+    Note: upper case in Python, lower case in JSON.
+
+    Values:
+      PARTS, CHUNKS
+    """
+    PARTS = 'parts'
+    CHUNKS = 'chunks'
+
+class StreamOptions(BaseModel):
+    """Options for streaming.
+
+    Attributes:
+        mode: The streaming mode to use.
+    """
+    mode: StreamMode = StreamMode.PARTS
+
+class WebsocketStatus(BaseModel):
+    """Status messages on websocket connection.
+
+    Attributes:
+        status: 'ready' or 'error'
+        message: a message to give details on the status
+        request_id: present if the status update is assocated with a particular request
+        model: present if the status update is associated with a particular model
+    """
+    status: Status
+    message: str
+    request_id: Optional[Union[int,str]] = None
+    model: Optional[str] = None

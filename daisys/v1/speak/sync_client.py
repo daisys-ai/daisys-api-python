@@ -1,16 +1,23 @@
 from typing import Union, Callable, Awaitable, Optional
 import time
 import json
+import queue
 
 import httpx
+try:
+    import httpx_ws
+    websockets_supported = True
+except:
+    websockets_supported = False
 
 from .models import *
 from .exceptions import (DaisysTakeGenerateError, DaisysVoiceGenerateError,
                          DaisysTakeDeletionError, DaisysVoiceDeletionError,
                          DaisysVoiceUpdateError, DaisysCredentialsError)
+from .sync_websocket import DaisysSyncSpeakWebsocketV1
 
 class DaisysSyncSpeakClientV1:
-    """Wrapper for Daisys v1 API endpoints, asynchronous version."""
+    """Wrapper for Daisys v1 API endpoints, synchronous version."""
     def __init__(self, auth_url: str, product_url: str, email: str, password: str,
                  access_token: str, refresh_token: str):
         """
@@ -44,7 +51,7 @@ class DaisysSyncSpeakClientV1:
         self.redirect_cache_timeout = 60 * 10
         self.redirect_cache = dict()
 
-    def login(self, email: Optional[str]=None, Optional[password]: str=None) -> bool:
+    def login(self, email: Optional[str]=None, password: Optional[str]=None) -> bool:
         """Log in to the Daisys API using the provided credentials.
 
         If successful, nothing is returned.  An access token is stored in the client for
@@ -361,7 +368,7 @@ class DaisysSyncSpeakClientV1:
         """
         return TakeResponse(**self._http('takes/' + take_id))
 
-    def get_takes(self, take_ids: Optional[list[str]]=None, Optional[length]: int=None,
+    def get_takes(self, take_ids: Optional[list[str]]=None, length: Optional[int]=None,
                   page: Optional[int]=None, older: Optional[int]=None,
                   newer: Optional[int]=None) -> list[TakeResponse]:
         """Get a list of takes, optionally filtered.
@@ -735,3 +742,48 @@ class DaisysSyncSpeakClientV1:
                 else:
                     return False
             raise
+
+    def websocket_url(self, model: str=None, voice_id: str=None,
+                      raise_on_error: bool=True) -> str:
+        """Get a URL for connecting a websocket.  Must specify model or voice_id
+        in order to indicate the principle model to be used on this connection.
+
+        Args:
+            model: the model for which we want to retrieve a websocket URL.
+            voice_id: the id of a voice for which we want to retrieve a websocket URL.
+
+            raise_on_error: If True (default) an error will be raised if the
+                            voice was not found or the URL could not be
+                            retrieved.
+
+        Returns:
+            str: The URL to connect a websocket to.
+
+        """
+        if voice_id:
+            voice = self.get_voice(voice_id)
+            model = voice.model
+        assert model is not None, "A model or voice must be provided."
+        result = self._http('websocket/' + model, decode_json=True)
+        return result["worker_websocket_url"]
+
+    def websocket(self, model: str=None, voice_id: str=None) -> DaisysSyncSpeakWebsocketV1:
+        """Get an interface to the websocket that manages the connection, allows
+        making voice generate and take generate reqeusts, and handles streaming
+        the resulting audio.
+
+        This provided interface is intended to be used in a ``with`` clause.
+
+        Args:
+            model: a websocket connection requires specifying a model or voice
+            voice_id: if model is not provided, voice_id must be provided
+
+        Returns:
+            :class:`.DaisysSyncSpeakWebsocketV1`
+        """
+        if not websockets_supported:
+            raise RuntimeError("Please install httpx_ws to have websocket support.")
+        if voice_id:
+            voice = self.get_voice(voice_id)
+            model = voice.model
+        return DaisysSyncSpeakWebsocketV1(self, model)
