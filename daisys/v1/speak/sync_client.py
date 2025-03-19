@@ -161,6 +161,7 @@ class DaisysSyncSpeakClientV1:
         else:
             raise DaisysCredentialsError()
         next_stage = stage
+        redirect_count = 0
         while stage <= STAGE_RETRY:
             stage, next_stage = next_stage, next_stage + 1
             try:
@@ -190,14 +191,22 @@ class DaisysSyncSpeakClientV1:
                         response = self.httpx_client.delete(self.product_url + query, headers=headers)
                     else:
                         response = self.httpx_client.get(self.product_url + query, headers=headers)
-                    if response.is_redirect:
-                        self.redirect_cache[query] = time.time(), response.next_request.url
-                        if str(response.next_request.url).startswith(self.product_url):
+                    while response.is_redirect and redirect_count < 10:
+                        redirect_count += 1
+                        try:
+                            if 'X-Amz-Signature' in str(response.next_request.url):
+                                # Pre-signed URL, no auth needed.
+                                headers = {}
+                                # We cache these, since they are good for 10 minutes.
+                                self.redirect_cache[query] = time.time(), response.next_request.url
+
+                            # Wait at least 5 minutes: since this might be a streaming
+                            # URL, we just want to block until the take starts streaming.
                             response = self.httpx_client.get(response.next_request.url,
-                                                             headers=headers)
-                        else:
-                            # No auth, assume pre-signed URL.
-                            response = self.httpx_client.get(response.next_request.url)
+                                                             headers=headers, timeout=5*60)
+                        except (httpx.ReadTimeout, httpx.ConnectTimeout):
+                            # On timeout, try again, simple linear back-off schedule.
+                            time.sleep(redirect_count)
                     response.raise_for_status()
                 elif stage == STAGE_REFRESH:
                     if self.login_refresh():
