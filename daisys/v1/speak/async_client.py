@@ -177,7 +177,12 @@ class DaisysAsyncSpeakClientV1:
                         if isinstance(body, list):
                             body_json = '[' + ','.join(b.json() for b in body) + ']'
                         elif isinstance(body, dict):
-                            body_json = json.dumps(body)
+                            class json_encoder(json.JSONEncoder):
+                                def default(self, obj):
+                                    if hasattr(obj, 'model_dump'):
+                                        return obj.model_dump()
+                                    return super().default(obj)
+                            body_json = json.dumps(body, cls=json_encoder)
                         else:
                             body_json = body.json()
                         headers['Content-Type'] = 'application/json'
