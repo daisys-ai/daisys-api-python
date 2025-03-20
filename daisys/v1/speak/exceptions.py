@@ -1,3 +1,8 @@
+__all__ = [ 'DaisysError', 'DaisysGenerateError', 'DaisysTakeGenerateError',
+            'DaisysVoiceGenerateError', 'DaisysDeletionError', 'DaisysUpdateError',
+            'DaisysTakeDeletionError', 'DaisysVoiceDeletionError', 'DaisysVoiceUpdateError',
+            'DaisysCredentialsError' ]
+
 from typing import Union
 from .models import TakeResponse
 
