@@ -248,7 +248,7 @@ class DaisysAsyncSpeakClientV1:
         Returns:
             Version: An object containing version information.
         """
-        response = await self.httpx_client.get(self.product_url + 'version')
+        response = await self.httpx_client.get(self.product_url + 'version', timeout=30)
         response.raise_for_status()
         return Version(**response.json())
 

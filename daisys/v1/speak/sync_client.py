@@ -170,6 +170,7 @@ class DaisysSyncSpeakClientV1:
             raise DaisysCredentialsError()
         next_stage = stage
         redirect_count = 0
+        timeout = 30
         while stage <= STAGE_RETRY:
             stage, next_stage = next_stage, next_stage + 1
             try:
@@ -177,10 +178,10 @@ class DaisysSyncSpeakClientV1:
                     cache_time, cache_url = self.redirect_cache[query]
                     if time.time() - cache_time < self.redirect_cache_timeout:
                         if str(cache_url).startswith(self.product_url):
-                            response = self.httpx_client.get(cache_url, headers=headers)
+                            response = self.httpx_client.get(cache_url, headers=headers, timeout=timeout)
                         else:
                             # No auth, assume pre-signed URL.
-                            response = self.httpx_client.get(cache_url)
+                            response = self.httpx_client.get(cache_url, timeout=timeout)
                     else:
                         del self.redirect_cache[query]
                 elif stage in {STAGE_TRY, STAGE_RETRY}:
@@ -199,11 +200,11 @@ class DaisysSyncSpeakClientV1:
                             body_json = body.json()
                         headers['Content-Type'] = 'application/json'
                         response = self.httpx_client.post(self.product_url + query, headers=headers,
-                                                          content=body_json)
+                                                          content=body_json, timeout=timeout)
                     elif delete:
-                        response = self.httpx_client.delete(self.product_url + query, headers=headers)
+                        response = self.httpx_client.delete(self.product_url + query, headers=headers, timeout=timeout)
                     else:
-                        response = self.httpx_client.get(self.product_url + query, headers=headers)
+                        response = self.httpx_client.get(self.product_url + query, headers=headers, timeout=timeout)
                     while response.is_redirect and redirect_count < 10:
                         if location:
                             return str(response.next_request.url)
@@ -252,7 +253,7 @@ class DaisysSyncSpeakClientV1:
         Returns:
             Version: An object containing version information.
         """
-        response = self.httpx_client.get(self.product_url + 'version')
+        response = self.httpx_client.get(self.product_url + 'version', timeout=30)
         response.raise_for_status()
         return Version(**response.json())
 
