@@ -252,6 +252,54 @@ by providing the ``format`` parameter.
 
 .. _VLC: https://www.videolan.org/
 
+Streaming audio
+...............
+
+The Daisys API supports two methods of streaming audio:
+
+* HTTP
+* Websocket
+
+The HTTP method downloads the audio file in chunks using a streaming response,
+and can be convenient if a simple iterator interface is desired.  When making
+the take request, set ``wait`` to ``False``, and call ``stream_take_audio``.
+Alternatively a signed URL can be retrieved using ``get_take_audio_url``, useful
+for passing to an audio playing running on a frontend browser.
+
+.. code-block:: python
+   :caption: Streaming audio, HTTP method
+   :linenos:
+
+   from daisys import DaisysAPI
+   with DaisysAPI('speak', email='user@example.com', password='pw') as speak:
+       print("Streaming a take's audio.")
+       with speak.stream_take_audio(take_id='t01hasghx0zgdc29gpzexw5r8wc') as stream:
+           for chunk in stream:
+               print('Length in bytes:', len(chunk))
+
+For lowest latency usage, it is additionally possible to use a websocket to
+create a connection directly to the worker node used for synthesizing audio.
+Requests are submitted to the worker and the same node streams back the audio as
+it is generated over the already-established connection.
+
+.. code-block:: python
+   :caption: Streaming audio, HTTP method
+   :linenos:
+
+   from daisys import DaisysAPI
+   with DaisysAPI('speak', email='user@example.com', password='pw') as speak:
+       print("Streaming a take's audio.")
+       with speak.websocket(voice_id='v01hasgezqjcsnc91zdfzpx0apj') as ws:
+           request_id = ws.generate_take(voice_id='v01hasgezqjcsnc91zdfzpx0apj',
+                                         text="Hello, Daisys! It's a beautiful day.",
+                                         audio_callback=my_audio_cb,
+                                         status_callback=my_status_cb)
+
+The specified callbacks will be called whenever the requested take's status
+changes or audio data is generated.  See ``websocket_example.py`` for complete
+information on the signatures of these two callbacks and examples showing how
+they can be used to receive audio in chunks as it is generated.
+
 Authentication with access tokens
 .................................
 
