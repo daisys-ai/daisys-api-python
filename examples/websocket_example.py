@@ -1,7 +1,8 @@
-import os, time
+import sys, os, time
 from typing import Optional
 from daisys import DaisysAPI
-from daisys.v1.speak import DaisysWebsocketGenerateError, HTTPStatusError, Status, TakeResponse
+from daisys.v1.speak import (DaisysWebsocketGenerateError, HTTPStatusError, Status, TakeResponse,
+                             StreamOptions, StreamMode)
 
 # Override DAISYS_EMAIL and DAISYS_PASSWORD with your details!
 EMAIL = os.environ.get('DAISYS_EMAIL', 'user@example.com')
@@ -9,7 +10,7 @@ PASSWORD = os.environ.get('DAISYS_PASSWORD', 'pw')
 
 # Please see tokens_example.py for how to use an access token instead of a password.
 
-def main():
+def main(chunks):
     with DaisysAPI('speak', email=EMAIL, password=PASSWORD) as speak:
         print('Found Daisys Speak API', speak.version())
 
@@ -75,9 +76,19 @@ def main():
                         # Start a new part
                         audio_wavs.append(bytes())
 
-                # Otherwise just append the chunk.
+                # Otherwise append the chunk.
                 else:
                     audio_wavs[-1] = audio_wavs[-1] + audio
+
+                    # If non-chunked stream, the part is ended immediately
+                    if chunk_id is None:
+                        # If we have any audio data, write out the file
+                        with open(f'websocket_part{len(audio_wavs)}.wav', 'wb') as f:
+                            f.write(audio_wavs[-1])
+                            print(f'Read {len(audio_wavs[-1])} bytes of wav data, wrote "{f.name}".')
+
+                        # Start a new part
+                        audio_wavs.append(bytes())
 
             # The status callback is called every time the take's status
             # changes.  Here we use it to end the update loop.
@@ -95,6 +106,9 @@ def main():
                 text='Hello from Daisys websockets! How may I help you?',
                 status_callback=status_cb,
                 audio_callback=audio_cb,
+
+                # Optional
+                stream_options=StreamOptions(mode=StreamMode.CHUNKS) if chunks else None,
             )
 
             # Will be filled in by callbacks. On submitting the generate
@@ -128,7 +142,7 @@ def main():
 
 if __name__=='__main__':
     try:
-        main()
+        main('--chunks' in sys.argv[1:])
     except HTTPStatusError as e:
         try:
             print(f'HTTP error status {e.response.status_code}: {e.response.json()["detail"]}, {e.request.url}')

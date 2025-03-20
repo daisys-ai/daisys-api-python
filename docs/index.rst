@@ -27,6 +27,7 @@ Have your product talking in seconds!
    daisys.rst
    v1/speak/clients.rst
    v1/speak/models.rst
+   v1/speak/websockets.rst
    v1/speak/endpoints.rst
 
 Indices and tables

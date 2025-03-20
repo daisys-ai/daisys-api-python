@@ -1,7 +1,8 @@
-import os, time
+import sys, os, time
 from typing import Optional
 from daisys import DaisysAPI
-from daisys.v1.speak import DaisysWebsocketGenerateError, HTTPStatusError, Status, TakeResponse
+from daisys.v1.speak import (DaisysWebsocketGenerateError, HTTPStatusError, Status, TakeResponse,
+                             StreamOptions, StreamMode)
 
 # Override DAISYS_EMAIL and DAISYS_PASSWORD with your details!
 EMAIL = os.environ.get('DAISYS_EMAIL', 'user@example.com')
@@ -9,7 +10,7 @@ PASSWORD = os.environ.get('DAISYS_PASSWORD', 'pw')
 
 # Please see tokens_example.py for how to use an access token instead of a password.
 
-def main():
+def main(chunks):
     with DaisysAPI('speak', email=EMAIL, password=PASSWORD) as speak:
         print('Found Daisys Speak API', speak.version())
 
@@ -32,6 +33,9 @@ def main():
             generate_request_id = ws.generate_take(
                 voice_id=voice.voice_id,
                 text='Hello from Daisys websockets! How may I help you?',
+
+                # Optional
+                stream_options=StreamOptions(mode=StreamMode.CHUNKS) if chunks else None,
             )
 
             # The use of an interator simplifies streaming, here we show how to
@@ -51,7 +55,7 @@ def main():
 
 if __name__=='__main__':
     try:
-        main()
+        main('--chunks' in sys.argv[1:])
     except HTTPStatusError as e:
         try:
             print(f'HTTP error status {e.response.status_code}: {e.response.json()["detail"]}, {e.request.url}')

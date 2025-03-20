@@ -1,4 +1,4 @@
-import os, asyncio
+import os, asyncio, json
 from daisys import DaisysAPI
 from daisys.v1.speak import VoiceGender, SimpleProsody, DaisysTakeGenerateError, HTTPStatusError
 
@@ -7,6 +7,19 @@ EMAIL = os.environ.get('DAISYS_EMAIL', 'user@example.com')
 PASSWORD = os.environ.get('DAISYS_PASSWORD', 'pw')
 
 # Please see tokens_example.py for how to use an access token instead of a password.
+
+def load_tokens():
+    """A function to access and refresh tokens from a local file.  In practice you might
+    store this somewhere more global like in a database, to re-use between sessions."""
+    try:
+        with open('daisys_tokens.json') as tokens_file:
+            tokens = json.load(tokens_file)
+            print('Loaded tokens from "daisys_tokens.json".')
+            return tokens['access_token'], tokens['refresh_token']
+    except (FileNotFoundError, json.JSONDecodeError):
+        return None, None
+
+ACCESS_TOKEN, REFRESH_TOKEN = load_tokens()
 
 def main():
     with DaisysAPI('speak', email=EMAIL, password=PASSWORD) as speak:

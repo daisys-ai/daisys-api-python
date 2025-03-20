@@ -108,6 +108,72 @@ and providing the :class:`TakeGenerate <daisys.v1.speak.models.TakeGenerate>` st
 input in the content body.
 
 
+.. _v1_speak_endpoints_retrieving_audio:
+
+Retrieving audio
+................
+
+Finally, the audio can be retrieved by accessing the take's ``/wav`` endpoint.
+Equivalently, other formats can also be retrieved this way, however ``wav`` is
+the only format that can be retrieved before it is "ready", allowing to download
+as it is generated::
+
+  https://api.daisys.ai/v1/speak/takes/<take_id>/wav
+  https://api.daisys.ai/v1/speak/takes/<take_id>/mp3
+  https://api.daisys.ai/v1/speak/takes/<take_id>/m4a
+  https://api.daisys.ai/v1/speak/takes/<take_id>/flac
+  https://api.daisys.ai/v1/speak/takes/<take_id>/webm
+
+Note that these endpoints return a 307 redirect to where the audio can be
+streamed or stored from.
+
+  Important: a complication is that S3 presigned URLs must be accessed without the
+  Daisys "Authorization" header, which some http clients will not drop
+  automatically. Therefore the following logic is recommended, and performed by
+  the Python client library when following the redirect to ``url``::
+
+    if 'X-Amz-Signature' in url:
+      # Pre-signed URL, no auth needed.
+      headers = {}
+
+  Note that browsers `handle this automatically`_ when changing origins, however
+  it is not recommended in any case to access the REST API endpoints directly
+  from the browser since they require the access token.  Instead, backend
+  software can access the ``/wav`` endpoint and retrieve the URL in the Location
+  header, and forward this to the browser, which can be accessed without the
+  Authorization header and has a limited lifetime.  Therefore this redirect
+  Location is convenient and more secure to pass directly to an Audio Player
+  object on the client side.
+
+  .. _handle this automatically: https://github.com/whatwg/fetch/pull/1544
+
+.. _websocket_endpoint:
+
+Websocket Endpoints
+-------------------
+
+The following endpoint can be used to retrieve an URL for making a direct
+websocket connection to a worker by issuing a GET request::
+
+  https://api.daisys.ai/v1/speak/websocket?model=<model>
+
+As can be seen, the model to use must be specified when making a request for a
+worker URL, which allows the Daisys API to better distribute requests to workers
+with preloaded models.
+
+For the same reason, whenever a websocket is disconnected, a new URL must be
+requested through the above endpoint.  Disconnection may happen from time to
+time but shall not happen during the processing of a request.  The provided URLs
+expire after 1 hour.  A connection may remain open longer than that, but new
+connections must request a new URL.
+
+The endpoint returns the following JSON body::
+
+  {
+    "websocket_url": "<url>"
+  }
+
+
 Authentication Endpoints
 ------------------------
 
@@ -133,8 +199,7 @@ HTTP header, in the following form::
   Authorization: Bearer <access_token>
 
 Furthermore if the ``access_token`` is no longer working, the ``refresh_token`` can be
-used to get a new one without supplying the password::
-
+used to get a new one without supplying the password:
   https://api.daisys.ai/auth/refresh
 
 In this case the ``POST`` request should have the form::

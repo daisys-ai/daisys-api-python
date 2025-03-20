@@ -283,7 +283,7 @@ Requests are submitted to the worker and the same node streams back the audio as
 it is generated over the already-established connection.
 
 .. code-block:: python
-   :caption: Streaming audio, HTTP method
+   :caption: Streaming audio, websocket method
    :linenos:
 
    from daisys import DaisysAPI
@@ -299,6 +299,21 @@ The specified callbacks will be called whenever the requested take's status
 changes or audio data is generated.  See ``websocket_example.py`` for complete
 information on the signatures of these two callbacks and examples showing how
 they can be used to receive audio in chunks as it is generated.
+
+In addition to the callback interface,
+:meth:`~daisys.v1.speak.sync_websocket.DaisysSyncSpeakWebsocketV1.iter_request`
+(``async``
+:meth:`~daisys.v1.speak.async_websocket.DaisysAsyncSpeakWebsocketV1.iter_request`)
+is provided to allow an iterator-based for-loop (or async for-loop) over incoming
+audio chunks, simplifying usage.
+
+Finally, in applications where the backend should perform REST API calls but the
+front-end should stream audio,
+:meth:`~daisys.v1.speak.sync_client.DaisysSyncSpeakClientV1.websocket_url` can
+be used to retrieve a URL that the front-end should connect a websocket to.
+:ref:`websocket_client` is provided to show how to manage the websocket
+connection using JavaScript.
+
 
 Authentication with access tokens
 .................................
