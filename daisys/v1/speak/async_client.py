@@ -3,6 +3,7 @@ import time
 import asyncio
 import json
 import queue
+import contextlib
 
 import httpx
 try:
@@ -148,7 +149,7 @@ class DaisysAsyncSpeakClientV1:
             return response.is_success
 
     async def _http(self, query: str, body: Optional[Union[dict,list]]=None, decode_json=True,
-                    cache_redirect=False, delete=False) -> dict:
+                    cache_redirect=False, delete=False, location=False) -> dict:
         """Private function to Perform an HTTP request on behalf of the client. Handles
         auto-login, token refresh, and redirect caching automatically."""
         headers = {'Client': 'daisys-python'}
@@ -200,6 +201,8 @@ class DaisysAsyncSpeakClientV1:
                     else:
                         response = await self.httpx_client.get(self.product_url + query, headers=headers)
                     while response.is_redirect and redirect_count < 10:
+                        if location:
+                            return str(response.next_request.url)
                         redirect_count += 1
                         try:
                             if 'X-Amz-Signature' in str(response.next_request.url):
@@ -388,12 +391,13 @@ class DaisysAsyncSpeakClientV1:
         return [TakeResponse(**r) for r in await self._http('?'.join(['takes', '&'.join(params)]))]
 
     async def get_take_audio(self, take_id: str, file: Optional[str]=None, format: str='wav') -> bytes:
-        """Get audio associated with a ready take.
+        """Get audio associated with a take.
 
         Args:
             take_id:  A take_id to retrieve the audio for.
             file:     Optionally, the filename of a file to write, or a file stream to write to.
-            format:   A supported format, msut be one of 'wav', 'mp3', 'flac', 'm4a'
+            format:   A supported format, must be one of 'wav', 'mp3', 'flac', 'm4a'.
+                      Note: only 'wav' may be retrieved without waiting for 'ready' status.
 
         Returns:
             bytes:    The content of the audio file associated with the requested take.
@@ -407,6 +411,45 @@ class DaisysAsyncSpeakClientV1:
                 with open(file, 'wb') as f:
                     f.write(wav)
         return wav
+
+    async def get_take_audio_url(self, take_id: str, format: str='wav') -> str:
+        """Get the signed URL for audio associated with a take.  May be used to
+        provide the URL to a download or streaming client that does not have the
+        API access token.
+
+        Args:
+            take_id:  A take_id to retrieve the audio URL for.
+            format:   A supported format, msut be one of 'wav', 'mp3', 'flac', 'm4a'.
+                      Note: only 'wav' may be retrieved without waiting for 'ready' status.
+
+        Returns:
+            str: The URL that can be used to download the content of the
+                 audio associated with the requested take.
+
+        """
+
+        url = await self._http(f'takes/{take_id}/{format}', decode_json=False, location=True)
+        return url
+
+    @contextlib.asynccontextmanager
+    async def stream_take_audio(self, take_id: str):
+        """Stream the audio by providing an iterator over chunks of bytes.
+
+        Args:
+            take_id:  A take_id to retrieve the audio URL for.
+
+        Returns:
+            iterator: use "for" to read chunks of bytes for this take.
+
+        """
+
+        url = await self.get_take_audio_url(take_id)
+        async with self.httpx_client.stream('GET', url) as stream:
+            if stream.is_redirect:
+                async with self.httpx_client.stream('GET', stream.next_request.url) as stream:
+                    yield stream.aiter_bytes()
+            else:
+                yield stream.aiter_bytes()
 
     async def wait_for_takes(self, take_ids: Union[str, list[str]],
                              sleep_seconds=0.5,
