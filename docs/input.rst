@@ -119,3 +119,40 @@ Example options:
 - ``<w role="daisys:RB">live</w>`` : adverb
 - ``<w role="daisys:NN" sense="daisys:DEFAULT">bass</w>`` : default meaning/pronunciation (in the example: the music-related sense)
 - ``<w role="daisys:NN" sense="daisys:SENSE_1">bass</w>`` : first non-default meaning/pronunciation (in the example: the fish)
+
+Emphasis Tag
+^^^^^^^^^^^^
+
+The ``<emphasis>`` tag allows to select a word for emphasis. Intonation and
+duration behaviour of the model will be modified in the text between the tags.
+
+The strength of the emphasis can be modulated by the ``level`` attribute, which
+by default is ``moderate`` but can take the following values:
+
+- ``<emphasis level="moderate">some text</emphasis>``: somewhat emphasize the text
+- ``<emphasis level="strong">some text</emphasis>``: more strongly emphasize the text
+- ``<emphasis level="down">some text</emphasis>``: emphasize the text by going down in pitch
+- ``<emphasis level="none">some text</emphasis>``: avoid that the model automatically emphasizes this text
+
+Note that the model will often choose which parts of a sentence to emphasize
+depending on context if no hints are provided, so this level of control is
+critical if you want to avoid that the wrong word is selected or the ensure the
+right word is selected for emphasis.
+
+The ``pause`` attribute may also be added to insert a pause after the word which
+can enhance emphasis, it takes the same values as the ``strength`` attribute of
+the ``<break>`` tag:
+
+- ``<emphasis level="moderate" pause="weak">some text</emphasis>``: somewhat emphasize the text, including a short pause
+- ``<emphasis level="strong" pause="weak">some text</emphasis>``: strongly emphasize the text, including a medium pause
+- ``<emphasis pause="weak">some text</emphasis>``: somewhat emphasize the text, including a long pause
+
+Break Tag
+^^^^^^^^^
+
+The ``<break>`` tag inserts a pause at a given place in the text.  The duration
+of the pause can be controlled by the ``strength`` attribute:
+
+- ``<break strength="weak"/>``: a short pause, such as after a comma
+- ``<break strength="medium"/>``: a medium-length pause, such as between sentences
+- ``<break strength="strong"/>``: a longer pause, such as between paragraphs
