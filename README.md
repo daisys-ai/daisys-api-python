@@ -6,6 +6,9 @@ Have your product talking in seconds!
 
 
 ```python
+    from daisys import DaisysAPI
+    from daisys.v1.speak import SimpleProsody
+
     with DaisysAPI('speak', email='user@example.com', password='pw') as speak:
         voice = speak.get_voices()[-1]
         print(f"{voice.name} speaking!")
@@ -14,8 +17,8 @@ Have your product talking in seconds!
         audio_wav = speak.get_take_audio(take.take_id, filename='hello_daisys.wav')
 ```
 
-This library uses `pydantic` and `httpx` as the main dependencies.  Clients using normal,
-synchronous Python, or using `asyncio`, are available.
+This library uses `pydantic` and `httpx` as the main dependencies.  It can be
+used with or without ``asyncio``.
 
 Please visit the [online documentation](https://daisys-ai.github.io/daisys-api-python/)
 for information on how to use the Daisys API from Python, or from any language using the

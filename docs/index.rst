@@ -10,6 +10,9 @@ Have your product talking in seconds!
    :caption: Example
    :linenos:
 
+   from daisys import DaisysAPI
+   from daisys.v1.speak import SimpleProsody
+
    with DaisysAPI('speak', email='user@example.com', password='pw') as speak:
        voice = await speak.get_voices()[-1]
        print(f"{voice.name} speaking!")

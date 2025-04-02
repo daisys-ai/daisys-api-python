@@ -232,7 +232,8 @@ HTTP header, in the following form::
   Authorization: Bearer <access_token>
 
 Furthermore if the ``access_token`` is no longer working, the ``refresh_token`` can be
-used to get a new one without supplying the password:
+used to get a new one without supplying the password::
+
   https://api.daisys.ai/auth/refresh
 
 In this case the ``POST`` request should have the form::

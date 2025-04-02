@@ -272,8 +272,8 @@ The resulting file ``beautiful_day.wav`` can be played using command line progra
 ``aplay`` on Linux, or any audio player such as the excellent `VLC`_.  You can integrate
 the results into your creative projects!
 
-It is also possible to retrieve the audio in other formats: ``mp3``, ``flac``, and
-``m4a``, by retrieving at the corresponding URL,
+It is also possible to retrieve the audio in other formats: ``mp3``, ``flac``,
+``webm``, and ``m4a``, by retrieving at the corresponding URL,
 ``../speak/takes/t01haybgb16dn9dk0p5je47qz74/mp3``, etc.
 
 .. _VLC: https://www.videolan.org/

@@ -6,7 +6,10 @@ DAISYS_API_URL = os.environ.get('DAISYS_API_URL', 'https://api.daisys.ai')
 DAISYS_AUTH_URL = os.environ.get('DAISYS_AUTH_URL', DAISYS_API_URL)
 
 class DaisysAPI:
-    """Factory class to get a Daisys API client."""
+    """Factory class to get a Daisys API client.
+
+    This class is intended (but not required) to be used in a ``with`` or ``async with`` clause.
+    """
     def __init__(self, product='speak', version='v1',
                  email: str=None, password: str=None,
                  access_token: str=None, refresh_token: str=None,

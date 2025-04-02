@@ -1,3 +1,5 @@
+.. _websocket_client:
+
 Example: Websocket example, web client
 ======================================
 

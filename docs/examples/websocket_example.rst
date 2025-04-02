@@ -1,3 +1,5 @@
+.. _websocket_example:
+
 Example: Websocket example, synchronous client
 ==============================================
 

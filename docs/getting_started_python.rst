@@ -19,11 +19,17 @@ install the library, and then download and run the examples:
    :caption: Installing the library
    :linenos:
 
+   $ # setup a virtual environment
    $ mkdir daisys_project
    $ cd daisys_project
    $ python3 -m venv venv
    $ . venv/bin/activate
+   $
+   $ # install the library
    $ python3 -m pip daisys
+
+Of course ``pip`` is only one option, you can use any Python project management
+software such as ``uv``, Poetry, etc.
 
 Running an example
 ..................
@@ -260,11 +266,20 @@ The Daisys API supports two methods of streaming audio:
 * HTTP
 * Websocket
 
+HTTP
+^^^^
+  
 The HTTP method downloads the audio file in chunks using a streaming response,
 and can be convenient if a simple iterator interface is desired.  When making
-the take request, set ``wait`` to ``False``, and call ``stream_take_audio``.
-Alternatively a signed URL can be retrieved using ``get_take_audio_url``, useful
-for passing to an audio playing running on a frontend browser.
+the take request, set ``wait`` to ``False``, and call
+:meth:`~daisys.v1.speak.sync_client.DaisysSyncSpeakClientV1.stream_take_audio`
+(``async``
+:meth:`~daisys.v1.speak.async_client.DaisysAsyncSpeakClientV1.stream_take_audio`).
+Alternatively a signed URL can be retrieved using
+:meth:`~daisys.v1.speak.sync_client.DaisysSyncSpeakClientV1.get_take_audio_url`
+(``async``
+:meth:`~daisys.v1.speak.async_client.DaisysAsyncSpeakClientV1.get_take_audio_url`),
+useful for passing to an audio playing running on a frontend browser.
 
 .. code-block:: python
    :caption: Streaming audio, HTTP method
@@ -276,6 +291,15 @@ for passing to an audio playing running on a frontend browser.
        with speak.stream_take_audio(take_id='t01hasghx0zgdc29gpzexw5r8wc') as stream:
            for chunk in stream:
                print('Length in bytes:', len(chunk))
+
+When using the HTTP method via endpoints outside of the Python library, please
+be aware of the use of 307 redirects and headers, outlined in
+:ref:`v1_speak_endpoints_retrieving_audio`.
+
+Websocket
+^^^^^^^^^
+
+See :ref:`websocket_examples`.
 
 For lowest latency usage, it is additionally possible to use a websocket to
 create a connection directly to the worker node used for synthesizing audio.
@@ -296,7 +320,7 @@ it is generated over the already-established connection.
                                          status_callback=my_status_cb)
 
 The specified callbacks will be called whenever the requested take's status
-changes or audio data is generated.  See ``websocket_example.py`` for complete
+changes or audio data is generated.  See :ref:`websocket_example` for complete
 information on the signatures of these two callbacks and examples showing how
 they can be used to receive audio in chunks as it is generated.
 
