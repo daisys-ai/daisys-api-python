@@ -107,15 +107,15 @@ Example usage:
 w Tag
 ^^^^^
 
-The `<w>` tag allows the user to select the correct pronunciation for a word based on the part of speech and meaning.
+The ``<w>`` tag allows the user to select the correct pronunciation for a word based on the part of speech and meaning.
 The part-of-speech tags from the [Penn Treebank](https://www.ling.upenn.edu/courses/Fall_2003/ling001/penn_treebank_pos.html) are used.
 
 Example options:
 
-- `<w role="daisys:VB">read</w>` : verb, present tense
-- `<w role="daisys:VBD">read</w>` : verb, past tense
-- `<w role="daisys:NN">wind</w>` : noun
-- `<w role="daisys:JJ">live</w>` : adjective
-- `<w role="daisys:RB">live</w>` : adverb
-- `<w role="daisys:NN" sense="daisys:DEFAULT">bass</w>` : default meaning/pronunciation (in the example: the music-related sense)
-- `<w role="daisys:NN" sense="daisys:SENSE_1">bass</w>` : first non-default meaning/pronunciation (in the example: the fish)
+- ``<w role="daisys:VB">read</w>`` : verb, present tense
+- ``<w role="daisys:VBD">read</w>`` : verb, past tense
+- ``<w role="daisys:NN">wind</w>`` : noun
+- ``<w role="daisys:JJ">live</w>`` : adjective
+- ``<w role="daisys:RB">live</w>`` : adverb
+- ``<w role="daisys:NN" sense="daisys:DEFAULT">bass</w>`` : default meaning/pronunciation (in the example: the music-related sense)
+- ``<w role="daisys:NN" sense="daisys:SENSE_1">bass</w>`` : first non-default meaning/pronunciation (in the example: the fish)
