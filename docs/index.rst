@@ -6,6 +6,10 @@ product is "Speak", which provides text-to-speech (TTS) services.
 
 Have your product talking in seconds!
 
+Building with an LLM?  Give it this `single-file text version`_ of these docs.
+
+.. _single-file text version: daisys-api-doc.txt
+
 .. code-block:: python
    :caption: Example
    :linenos:
