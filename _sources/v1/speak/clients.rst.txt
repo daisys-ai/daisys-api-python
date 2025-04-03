@@ -1,3 +1,4 @@
+.. _v1_speak_clients:
 
 Daisys API clients
 ==================

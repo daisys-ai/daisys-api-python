@@ -16,9 +16,10 @@ be used.
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+   :caption: Contents
 
    examples/hello_daisys.rst
    examples/hello_daisys_async.rst
+   examples/websocket.rst
    examples/tokens_example.rst
    examples/curl_example.rst
