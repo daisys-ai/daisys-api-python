@@ -1,0 +1,25 @@
+[project]
+name = "daisys"
+version = "1.0.1"
+description = "Python SDK for daisys.ai"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [
+    { name = "daisys.ai", email = "api@daisys.ai" }
+]
+dependencies = [
+    "pydantic>=2",
+    "httpx>=0.28.1",
+]
+
+[project.optional-dependencies]
+ws = ["httpx-ws>=0.7.1"]
+dev = ["sphinx>=7.0.0", "furo", "sphinxcontrib-napoleon"]
+
+[project.urls]
+Homepage = "https://github.com/daisys-ai/daisys-api-python"
+
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
