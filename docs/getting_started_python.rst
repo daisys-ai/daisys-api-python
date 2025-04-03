@@ -27,6 +27,9 @@ install the library, and then download and run the examples:
    $
    $ # install the library
    $ python3 -m pip daisys
+   $
+   $ # or if Python websocket support is needed
+   $ python3 -m pip daisys[ws]
 
 Of course ``pip`` is only one option, you can use any Python project management
 software such as ``uv``, Poetry, etc.

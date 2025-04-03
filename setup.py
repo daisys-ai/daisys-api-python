@@ -10,8 +10,11 @@ setup(
     python_requires=">=3.10",
     install_requires=[
         'pydantic>=2',
-        'httpx',
+        'httpx>=0.28.1',
     ],
+    extras_require={
+        'ws': ['httpx-ws>=0.7.1'],
+    },
     author="daisys.ai",
     author_email="api@daisys.ai",
     long_description=long_description,

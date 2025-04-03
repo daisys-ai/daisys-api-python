@@ -17,7 +17,8 @@ Have your product talking in seconds!
         audio_wav = speak.get_take_audio(take.take_id, filename='hello_daisys.wav')
 ```
 
-This library uses `pydantic` and `httpx` as the main dependencies.  It can be
+This library uses ``pydantic`` and ``httpx`` as the main dependencies, with
+``httpx-ws`` optional if Python-side websocket support is needed.  It can be
 used with or without ``asyncio``.
 
 Please visit the [online documentation](https://daisys-ai.github.io/daisys-api-python/)
