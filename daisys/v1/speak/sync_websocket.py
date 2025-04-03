@@ -205,6 +205,7 @@ class DaisysSyncSpeakWebsocketV1:
                        description: Optional[str]=None,
                        default_style: Optional[list[str]]=None,
                        default_prosody: Optional[ProsodyFeaturesUnion]=None,
+                       example_take: Optional[TakeGenerateWithoutVoice]=None,
                        stream_options: Optional[StreamOptions]=None,
                        done_webhook: Optional[str]=None,
                        status_callback: Optional[Callable[[int, TakeResponse], None]]=None,
@@ -223,6 +224,7 @@ class DaisysSyncSpeakWebsocketV1:
                            models support styles.
             default_prosody: An optional default prosody to associate with this voice.  It
                              can be overridden by a take that uses this voice.
+            example_take: Information on the take to generate as an example of this voice.
             stream_options: Configuration for streaming.
             done_webhook: An optional URL to call exactly once using POST when the voice
                           is available, with VoiceInfo in the body content.
@@ -238,7 +240,9 @@ class DaisysSyncSpeakWebsocketV1:
         params = VoiceGenerate(name=name, model=model, gender=gender,
                                description=description,
                                default_style=default_style,
-                               default_prosody=default_prosody, done_webhook=Webhook(post_url=done_webhook) if done_webhook else None)
+                               default_prosody=default_prosody,
+                               example_take=example_take,
+                               done_webhook=Webhook(post_url=done_webhook) if done_webhook else None)
         if stream_options is None:
             stream_options = StreamOptions(mode=StreamMode.CHUNKS)
         self.ws.send_text('{"command":"/voices/generate",'

@@ -309,6 +309,7 @@ class DaisysAsyncSpeakClientV1:
                              description: Optional[str]=None,
                              default_style: Optional[list[str]]=None,
                              default_prosody: Optional[ProsodyFeaturesUnion]=None,
+                             example_take: Optional[TakeGenerateWithoutVoice]=None,
                              done_webhook: Optional[str]=None,
                              wait: Optional[bool]=True,
                              raise_on_error: Optional[bool]=True,
@@ -327,6 +328,7 @@ class DaisysAsyncSpeakClientV1:
                            models support styles.
             default_prosody: An optional default prosody to associate with this voice.  It
                              can be overridden by a take that uses this voice.
+            example_take: Information on the take to generate as an example of this voice.
             done_webhook: An optional URL to call exactly once using POST when the voice
                           is available, with VoiceInfo in the body content.
 
@@ -347,6 +349,7 @@ class DaisysAsyncSpeakClientV1:
                                description=description,
                                default_style=default_style,
                                default_prosody=default_prosody,
+                               example_take=example_take,
                                done_webhook=Webhook(post_url=done_webhook) if done_webhook else None)
         result = VoiceInfo(**await self._http('voices/generate', params))
         if wait:
