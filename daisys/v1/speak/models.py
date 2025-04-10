@@ -10,7 +10,7 @@ import enum
 import json
 import warnings
 from typing import Optional, Union
-from pydantic import BaseModel
+from pydantic import BaseModel, constr
 
 class Status(str, enum.Enum):
     """Represents the status of a take or voice generation process.
@@ -219,6 +219,10 @@ class TakeGenerateWithoutVoice(BaseModel):
         done_webhook: An optional URL to be called exactly once using ``POST`` when the
                       take is ``READY``, ``ERROR``, or ``TIMEOUT``, with
                       :class:`TakeResponse` in the body content.
+        user_data: An optional string (max 256 chars) or numerical value that
+                   can be attached to a take for use in user applications; for
+                   example, storing video timestamps, sentence index, or
+                   external database keys.
 
     """
     text: str
@@ -227,6 +231,7 @@ class TakeGenerateWithoutVoice(BaseModel):
     prosody: Optional[ProsodyFeaturesUnion] = None
     status_webhook: Optional[Webhook] = None
     done_webhook: Optional[Webhook] = None
+    user_data: Optional[Union[constr(max_length=256), int, float]] = None
 
 class TakeGenerate(TakeGenerateWithoutVoice):
     """Parameters necessary to generate a "take", an audio file containing an utterance of
