@@ -97,7 +97,7 @@ def main(chunks):
                 assert request_id == generate_request_id
                 generated_take = take
                 print(take.status)
-                if take.status == Status.READY:
+                if take.status.done():
                     ready = True
 
             # Submit a request to generate a take over the websocket connection.
