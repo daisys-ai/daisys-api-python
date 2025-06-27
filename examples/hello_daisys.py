@@ -76,7 +76,7 @@ def main():
         # so that it gets written to disk, but it is also returned.
         audio_wav = speak.get_take_audio(take.take_id, file='hello_daisys.mp3', format='mp3')
 
-        print(f'Read {len(audio_wav)} bytes of wav data, wrote "hello_daisys.wav".')
+        print(f'Read {len(audio_wav)} bytes of wav data, wrote "hello_daisys.mp3".')
 
         # Let's check if we can get info on it again.
         check_take = speak.get_take(take.take_id)
