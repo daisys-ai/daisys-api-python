@@ -156,3 +156,26 @@ of the pause can be controlled by the ``strength`` attribute:
 - ``<break strength="weak"/>``: a short pause, such as after a comma
 - ``<break strength="medium"/>``: a medium-length pause, such as between sentences
 - ``<break strength="strong"/>``: a longer pause, such as between paragraphs
+
+Prosody Tag
+^^^^^^^^^^^
+
+The ``<prosody>`` tag allows the user to change the pitch, pace and expression
+of a sentence.  The range of values for each attribute is -10 to 10.
+
+- ``<prosody pitch="8">Hi there, friend!</prosody>``: Relatively high pitched text
+- ``<prosody pitch="-4">Hi there, friend.</prosody>``: Moderately low pitched text
+- ``<prosody pace="-10">Hi there... friend...</prosody>``: Very slow paced text
+- ``<prosody pace="7">Hi there, friend!</prosody>``: Somewhat high paced text
+- ``<prosody expression="-5">Hi there, friend.</prosody>``: Moderately flat/monotonous text
+- ``<prosody expression="10">Hi there, friend!</prosody>``: Highly expressive and modulated text
+
+Style Tag
+^^^^^^^^^
+
+The ``<daisys:style>`` tag allows the user to switch to a different style of
+speaking for a sentence, supported by the model.  E.g., for the `english-v3.0`
+model, the model supports the *english* and *american* styles.
+
+- ``<daisys:style name"english">The tube's a bit dodgy today, staying home.</daisys:style>``: Uses a British accent for the text
+- ``<daisys:style name"american">I'll hop on the subway and be right over!</daisys:style>``: Uses an American accent for the text
