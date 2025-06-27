@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Daisys API top-level object" href="daisys.html" /><link rel="prev" title="Example: curl example" href="examples/curl_example.html" />
 
     <!-- Generated with Sphinx 8.1.3 and Furo 2024.08.06 -->
-        <title>Daisys API input - daisys-api 1.1.0 documentation</title>
+        <title>Daisys API input - daisys-api 1.1.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=302659d7" />
@@ -175,7 +175,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">daisys-api 1.1.0 documentation</div></a>
+      <a href="index.html"><div class="brand">daisys-api 1.1.1 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -203,7 +203,7 @@
     <img class="sidebar-logo only-dark" src="_static/daisys-logo.png" alt="Dark Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">daisys-api 1.1.0 documentation</span>
+  <span class="sidebar-brand-text">daisys-api 1.1.1 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -412,6 +412,29 @@ of the pause can be controlled by the <code class="docutils literal notranslate"
 <li><p><code class="docutils literal notranslate"><span class="pre">&lt;break</span> <span class="pre">strength=&quot;strong&quot;/&gt;</span></code>: a longer pause, such as between paragraphs</p></li>
 </ul>
 </section>
+<section id="prosody-tag">
+<h3>Prosody Tag<a class="headerlink" href="#prosody-tag" title="Link to this heading">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">&lt;prosody&gt;</span></code> tag allows the user to change the pitch, pace and expression
+of a sentence.  The range of values for each attribute is -10 to 10.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;prosody</span> <span class="pre">pitch=&quot;8&quot;&gt;Hi</span> <span class="pre">there,</span> <span class="pre">friend!&lt;/prosody&gt;</span></code>: Relatively high pitched text</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;prosody</span> <span class="pre">pitch=&quot;-4&quot;&gt;Hi</span> <span class="pre">there,</span> <span class="pre">friend.&lt;/prosody&gt;</span></code>: Moderately low pitched text</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;prosody</span> <span class="pre">pace=&quot;-10&quot;&gt;Hi</span> <span class="pre">there...</span> <span class="pre">friend...&lt;/prosody&gt;</span></code>: Very slow paced text</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;prosody</span> <span class="pre">pace=&quot;7&quot;&gt;Hi</span> <span class="pre">there,</span> <span class="pre">friend!&lt;/prosody&gt;</span></code>: Somewhat high paced text</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;prosody</span> <span class="pre">expression=&quot;-5&quot;&gt;Hi</span> <span class="pre">there,</span> <span class="pre">friend.&lt;/prosody&gt;</span></code>: Moderately flat/monotonous text</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;prosody</span> <span class="pre">expression=&quot;10&quot;&gt;Hi</span> <span class="pre">there,</span> <span class="pre">friend!&lt;/prosody&gt;</span></code>: Highly expressive and modulated text</p></li>
+</ul>
+</section>
+<section id="style-tag">
+<h3>Style Tag<a class="headerlink" href="#style-tag" title="Link to this heading">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">&lt;daisys:style&gt;</span></code> tag allows the user to switch to a different style of
+speaking for a sentence, supported by the model.  E.g., for the <cite>english-v3.0</cite>
+model, the model supports the <em>english</em> and <em>american</em> styles.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;daisys:style</span> <span class="pre">name&quot;english&quot;&gt;The</span> <span class="pre">tube's</span> <span class="pre">a</span> <span class="pre">bit</span> <span class="pre">dodgy</span> <span class="pre">today,</span> <span class="pre">staying</span> <span class="pre">home.&lt;/daisys:style&gt;</span></code>: Uses a British accent for the text</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;daisys:style</span> <span class="pre">name&quot;american&quot;&gt;I'll</span> <span class="pre">hop</span> <span class="pre">on</span> <span class="pre">the</span> <span class="pre">subway</span> <span class="pre">and</span> <span class="pre">be</span> <span class="pre">right</span> <span class="pre">over!&lt;/daisys:style&gt;</span></code>: Uses an American accent for the text</p></li>
+</ul>
+</section>
 </section>
 </section>
 
@@ -479,6 +502,8 @@ of the pause can be controlled by the <code class="docutils literal notranslate"
 <li><a class="reference internal" href="#w-tag">w Tag</a></li>
 <li><a class="reference internal" href="#emphasis-tag">Emphasis Tag</a></li>
 <li><a class="reference internal" href="#break-tag">Break Tag</a></li>
+<li><a class="reference internal" href="#prosody-tag">Prosody Tag</a></li>
+<li><a class="reference internal" href="#style-tag">Style Tag</a></li>
 </ul>
 </li>
 </ul>
@@ -492,7 +517,7 @@ of the pause can be controlled by the <code class="docutils literal notranslate"
       
     </aside>
   </div>
-</div><script src="_static/documentation_options.js?v=fc837d61"></script>
+</div><script src="_static/documentation_options.js?v=58fbf978"></script>
     <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/furo.js?v=5fa4622c"></script>

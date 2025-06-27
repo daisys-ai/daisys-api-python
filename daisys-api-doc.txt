@@ -1207,7 +1207,7 @@ Daisys API examples
                  assert request_id == generate_request_id
                  generated_take = take
                  print(take.status)
-                 if take.status == Status.READY:
+                 if take.status.done():
                      ready = True
 
              # Submit a request to generate a take over the websocket connection.
@@ -2289,6 +2289,41 @@ Daisys API input
        sentences
 
      * <break strength="strong"/>: a longer pause, such as between paragraphs
+
+    Prosody Tag
+
+   The <prosody> tag allows the user to change the pitch, pace and expression
+   of a sentence. The range of values for each attribute is -10 to 10.
+
+     * <prosody pitch="8">Hi there, friend!</prosody>: Relatively high
+       pitched text
+
+     * <prosody pitch="-4">Hi there, friend.</prosody>: Moderately low
+       pitched text
+
+     * <prosody pace="-10">Hi there... friend...</prosody>: Very slow paced
+       text
+
+     * <prosody pace="7">Hi there, friend!</prosody>: Somewhat high paced
+       text
+
+     * <prosody expression="-5">Hi there, friend.</prosody>: Moderately
+       flat/monotonous text
+
+     * <prosody expression="10">Hi there, friend!</prosody>: Highly
+       expressive and modulated text
+
+    Style Tag
+
+   The <daisys:style> tag allows the user to switch to a different style of
+   speaking for a sentence, supported by the model. E.g., for the
+   english-v3.0 model, the model supports the english and american styles.
+
+     * <daisys:style name"english">The tube's a bit dodgy today, staying
+       home.</daisys:style>: Uses a British accent for the text
+
+     * <daisys:style name"american">I'll hop on the subway and be right
+       over!</daisys:style>: Uses an American accent for the text
 
 Daisys API top-level object
 
@@ -4145,7 +4180,10 @@ Daisys API JSON models
    override_language:  str  |  None  =  None, style:  list[str]  |  None  = 
    None, prosody:  SimpleProsody  |  AffectProsody  |  SignalProsody  |  None
    =  None, status_webhook:  Webhook  |  None  =  None, done_webhook: 
-   Webhook  |  None  =  None, voice_id:  str)
+   Webhook  |  None  =  None, user_data:  Annotated[str, 
+   StringConstraints(strip_whitespace=None,  to_upper=None,  to_lower=None, 
+   strict=None,  min_length=None,  max_length=256,  pattern=None)]  |  int  |
+   float  |  None  =  None, voice_id:  str)
 
            Parameters necessary to generate a “take”, an audio file
            containing an utterance of the given text by the given voice. See
@@ -4171,7 +4209,10 @@ Daisys API JSON models
    override_language:  str  |  None  =  None, style:  list[str]  |  None  = 
    None, prosody:  SimpleProsody  |  AffectProsody  |  SignalProsody  |  None
    =  None, status_webhook:  Webhook  |  None  =  None, done_webhook: 
-   Webhook  |  None  =  None)
+   Webhook  |  None  =  None, user_data:  Annotated[str, 
+   StringConstraints(strip_whitespace=None,  to_upper=None,  to_lower=None, 
+   strict=None,  min_length=None,  max_length=256,  pattern=None)]  |  int  |
+   float  |  None  =  None)
 
            Parameters necessary to generate a “take”, an audio file
            containing an utterance of the given text. No voice is provided
@@ -4247,6 +4288,17 @@ Daisys API JSON models
 
                                      daisys.v1.speak.models.Webhook | None
 
+                user_data
+
+                        An optional string (max 256 chars) or numerical value
+                        that can be attached to a take for use in user
+                        applications; for example, storing video timestamps,
+                        sentence index, or external database keys.
+
+                             Type:
+
+                                     str | int | float | None
+
                 model_config:  ClassVar[ConfigDict]  =  {}
 
                         Configuration for the model, should be a dictionary
@@ -4296,7 +4348,10 @@ Daisys API JSON models
    override_language:  str  |  None  =  None, style:  list[str]  |  None  = 
    None, prosody:  SimpleProsody  |  AffectProsody  |  SignalProsody  |  None
    =  None, status_webhook:  Webhook  |  None  =  None, done_webhook: 
-   Webhook  |  None  =  None, voice_id:  str, take_id:  str, status:  Status,
+   Webhook  |  None  =  None, user_data:  Annotated[str, 
+   StringConstraints(strip_whitespace=None,  to_upper=None,  to_lower=None, 
+   strict=None,  min_length=None,  max_length=256,  pattern=None)]  |  int  |
+   float  |  None  =  None, voice_id:  str, take_id:  str, status:  Status,
    timestamp_ms:  int, info:  TakeInfo  |  None  =  None)
 
            Information about a take, returned during and after take
